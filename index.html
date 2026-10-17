@@ -1587,10 +1587,10 @@ const mainFeatures = [
       const scenes = [
         { cmd: "help", title: "Madoka command guide", rows: [
           { cls: "t-text", html: 'Pick a category, then run <code>&gt;help &lt;command&gt;</code> to see how a command works.' },
-          { cls: "t-chips", html: ["antinuke", "automod", "moderation", "music", "games", "tickets", "welcomer", "giveaways"].map(name => `<span class="t-chip">${name}</span>`).join("") },
+          { cls: "t-chips", html: ["antinuke", "automod", "moderation", "music", "utility", "tickets", "welcomer", "giveaways"].map(name => `<span class="t-chip">${name}</span>`).join("") },
           { cls: "t-dim", html: "Slash commands also show up in Discord's command menu." }
         ] },
-        { cmd: "antinuke enable", title: "Initializing Anti-nuke protection preview...", rows: [
+        { cmd: "antinuke setup", title: "Initializing Anti-nuke protection preview...", rows: [
           step("[1/5]", "Checking bot permissions"),
           step("[2/5]", "Loading trusted-user safeguards"),
           step("[3/5]", "Preparing audit-log monitoring"),
@@ -1600,11 +1600,11 @@ const mainFeatures = [
           { cls: "t-result", html: "Preview complete. Check your server's actual command response and configuration before relying on protection." }
         ] },
         { cmd: "ping", title: "Pong!", rows: [
-          { cls: "t-stats", html: '<div><b>42 ms</b><span>Latency</span></div><div><b class="t-online">Online</b><span>Status</span></div><div><b>&gt;</b><span>Prefix</span></div>' },
+          { cls: "t-stats", html: '<div><b>14 ms</b><span>Latency</span></div><div><b class="t-online">Online</b><span>Status</span></div><div><b>&gt;</b><span>Prefix</span></div>' },
           { cls: "t-dim", html: "Sample numbers only. Your real latency will differ." }
         ] },
-        { cmd: "play lofi beats", title: "Now playing", rows: [
-          { cls: "t-track", html: '<div class="t-art" aria-hidden="true"><svg><use href="#i-sparkle"></use></svg></div><div class="t-track-info"><b>lofi beats</b><span>Requested by you</span><div class="t-eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div></div>' },
+        { cmd: "play Jealous", title: "Now playing", rows: [
+          { cls: "t-track", html: '<div class="t-art" aria-hidden="true"><svg><use href="#i-sparkle"></use></svg></div><div class="t-track-info"><b>Jealous</b><span>Requested by you</span><div class="t-eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div></div>' },
           { cls: "t-bar t-bar-music", html: '<i style="--w:.62;--dur:5s"></i>', wait: 400 },
           { cls: "t-dim", html: "Up next: 2 tracks in the queue." }
         ] }
