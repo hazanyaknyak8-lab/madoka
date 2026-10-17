@@ -1,0 +1,1823 @@
+<!doctype html>
+<html lang="en" data-theme="pink">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#fff4f9">
+  <meta name="description" content="Meet Madoka, an all-in-one Discord bot for server security, moderation, music, games, and community tools.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Madoka - All in One">
+  <meta property="og:description" content="An all-in-one Discord bot for server security, moderation, music, games, and community tools.">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.png">
+  <script>
+    /* Ilagay ang theme at sidebar state bago mag-paint para walang flash */
+    (function () {
+      var d = document.documentElement;
+      try {
+        d.dataset.theme = localStorage.getItem("madoka-theme") === "dark" ? "dark" : "pink";
+        if (localStorage.getItem("madoka-sidebar") === "collapsed" && window.innerWidth > 760) d.classList.add("sidebar-collapsed");
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) d.classList.add("skip-intro");
+      } catch (e) { d.dataset.theme = "pink"; }
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&family=Oxanium:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="madoka-avatar.gif">
+  <title>Madoka - All in One</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="bg-fx" aria-hidden="true"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span><div class="sparkles"><i style="--x:59%;--s:18px;--d:29s;--delay:-24s;--dx:29px"></i><i style="--x:59%;--s:18px;--d:29s;--delay:-18s;--dx:-42px"></i><i style="--x:25%;--s:18px;--d:23s;--delay:-20s;--dx:67px"></i><i style="--x:25%;--s:8px;--d:23s;--delay:-9s;--dx:-54px"></i><i style="--x:13%;--s:18px;--d:28s;--delay:-28s;--dx:87px"></i><i style="--x:83%;--s:8px;--d:25s;--delay:-12s;--dx:25px"></i><i style="--x:85%;--s:18px;--d:26s;--delay:-5s;--dx:69px"></i><i style="--x:3%;--s:18px;--d:17s;--delay:-1s;--dx:-81px"></i><i style="--x:26%;--s:10px;--d:25s;--delay:0s;--dx:28px"></i><i style="--x:43%;--s:14px;--d:25s;--delay:-26s;--dx:-40px"></i><i style="--x:68%;--s:10px;--d:26s;--delay:-9s;--dx:37px"></i><i style="--x:2%;--s:8px;--d:23s;--delay:-20s;--dx:-19px"></i><i style="--x:54%;--s:18px;--d:30s;--delay:-26s;--dx:-69px"></i><i style="--x:92%;--s:12px;--d:21s;--delay:-24s;--dx:-32px"></i><i style="--x:67%;--s:12px;--d:16s;--delay:-2s;--dx:54px"></i><i style="--x:15%;--s:14px;--d:17s;--delay:-27s;--dx:-16px"></i><i style="--x:51%;--s:8px;--d:16s;--delay:-27s;--dx:85px"></i><i style="--x:2%;--s:10px;--d:19s;--delay:-1s;--dx:30px"></i></div></div>
+  <canvas class="cursor-trail" id="cursor-trail" aria-hidden="true"></canvas>
+  <div class="intro-splash" id="intro" aria-hidden="true">
+    <div class="intro-glow"></div>
+    <div class="intro-stage">
+      <span class="intro-ripple"></span><span class="intro-ripple r2"></span>
+      <div class="intro-orbit"><i></i><i></i><i></i></div>
+      <div class="intro-mark"><img src="madoka-avatar.gif" alt="" width="256" height="256" decoding="async"></div>
+    </div>
+    <div class="intro-name"><span style="--i:0">M</span><span style="--i:1">a</span><span style="--i:2">d</span><span style="--i:3">o</span><span style="--i:4">k</span><span style="--i:5">a</span></div>
+    <p class="intro-subtitle">All in one Discord bot</p>
+    <div class="intro-line"><i></i></div>
+  </div>
+  <svg aria-hidden="true" width="0" height="0" class="svg-sprite">
+    <symbol id="i-bot" viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="13" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 3v4M8.5 12h.01M15.5 12h.01M9 16h6M2 11v5m20-5v5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-6v-7h-4v7H4a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="i-command" viewBox="0 0 24 24"><path d="M9 7a3 3 0 1 1-3-3h3v6H6a3 3 0 1 0 3 3zm6 0a3 3 0 1 0 3-3h-3v6h3a3 3 0 1 1-3 3zm-6 6v3a3 3 0 1 1-3-3h3zm6 0v3a3 3 0 1 0 3-3h-3z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+    <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-command-square" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M8 9h8M8 13h5M8 17h8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2m16 0v-2a4 4 0 0 0-3-3.87M14 3.13a4 4 0 0 1 0 7.75" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="10" cy="7" r="4" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 2.5 17.4A2 2 0 0 0 4.2 20h15.6a2 2 0 0 0 1.7-2.6L13.7 3.9a2 2 0 0 0-3.4 0Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 9v4m0 3h.01" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.5 15.2A8.6 8.6 0 0 1 8.8 3.5 8.7 8.7 0 1 0 20.5 15.2Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="m12 2 1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9L12 2Zm7 13 .9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 8.8c0 5-8.8 11-8.8 11s-8.8-6-8.8-11A4.8 4.8 0 0 1 12 6.1a4.8 4.8 0 0 1 8.8 2.7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-cursor" viewBox="0 0 24 24"><path d="m5 3 14 10-7 1.2L9 21 5 3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-discord" viewBox="0 0 24 24"><path d="M19.7 5.1A18 18 0 0 0 15.3 3l-.6 1.2a16 16 0 0 0-5.4 0L8.7 3a18 18 0 0 0-4.4 2.1C1.5 9.2.7 13.2 1.1 17.2a18 18 0 0 0 5.4 2.7l1.2-2a11 11 0 0 1-1.9-.9l.5-.4a13 13 0 0 0 11.4 0l.5.4a11 11 0 0 1-1.9.9l1.2 2a18 18 0 0 0 5.4-2.7c.5-4.7-.8-8.7-3.2-12.1ZM8.8 14.4c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2Zm6.4 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2Z" fill="currentColor"/></symbol>
+  </svg>
+  <aside class="sidebar">
+    <button class="sidebar-collapse" id="sidebar-collapse" type="button" aria-label="Collapse sidebar" aria-pressed="false" title="Collapse sidebar">
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m14.5 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="sidebar-inner">
+      <a class="brand" href="#home" data-goto="home" aria-label="Madoka home">
+        <span class="brand-mark"><img src="madoka-avatar.gif" alt="" width="256" height="256" decoding="async"></span>
+        <span class="brand-text"><span class="brand-name">Madoka</span><span class="brand-caption">Discord Bot</span></span>
+      </a>
+      <div class="nav-label">Explore</div>
+      <nav class="nav" aria-label="Main navigation">
+        <button class="nav-button active" type="button" data-page="home" aria-label="Home"><svg><use href="#i-home"></use></svg><span class="nav-text">Home</span></button>
+        <button class="nav-button" type="button" data-page="docs" aria-label="Docs"><svg><use href="#i-command-square"></use></svg><span class="nav-text">Docs</span></button>
+        <button class="nav-button" type="button" data-page="commands" aria-label="Commands"><svg><use href="#i-command"></use></svg><span class="nav-text">Commands</span></button>
+        <button class="nav-button" type="button" data-page="premium" aria-label="Premium"><svg><use href="#i-shield"></use></svg><span class="nav-text">Premium</span></button>
+        <button class="nav-button" type="button" data-page="developers" aria-label="Madoka Developers"><svg><use href="#i-users"></use></svg><span class="nav-text"><span class="nav-full">Madoka Developers</span><span class="nav-short">Devs</span></span></button>
+      </nav>
+      <div class="sidebar-spacer"></div>
+      <div class="side-support">
+        <div class="side-support-title"><span class="support-dot"></span>Need a hand?</div>
+        <p>Get help, updates, and your free 7-day Premium trial in our support server.</p>
+        <a class="support-link" href="https://discord.gg/6e2Ab3DkYY" target="_blank" rel="noopener noreferrer">Join support server <svg><use href="#i-arrow"></use></svg></a>
+      </div>
+      <div class="sidebar-foot">Made for your community</div>
+    </div>
+  </aside>
+  <div class="app">
+    <main class="main">
+      <header class="topbar">
+        <div class="crumb">Madoka <span aria-hidden="true">/</span> <strong id="crumb-page">Home</strong></div>
+        <div class="top-actions">
+          <div class="settings-menu" id="settings-menu">
+            <button class="settings-trigger" id="settings-trigger" type="button" aria-label="Appearance settings" aria-haspopup="true" aria-expanded="false" aria-controls="settings-panel" title="Appearance settings">
+              <svg class="settings-gear" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5a2 2 0 0 1 2 2v.3a6.2 6.2 0 0 1 1.7 1l.3-.2a2 2 0 1 1 2 3.5l-.3.2a6.7 6.7 0 0 1 0 2l.3.2a2 2 0 1 1-2 3.5l-.3-.2a6.2 6.2 0 0 1-1.7 1v.3a2 2 0 1 1-4 0v-.3a6.2 6.2 0 0 1-1.7-1l-.3.2a2 2 0 1 1-2-3.5l.3-.2a6.7 6.7 0 0 1 0-2l-.3-.2a2 2 0 1 1 2-3.5l.3.2a6.2 6.2 0 0 1 1.7-1v-.3a2 2 0 0 1 2-2Z"/><circle cx="12" cy="11.3" r="2.5"/></svg>
+            </button>
+            <div class="settings-panel" id="settings-panel" role="group" aria-label="Appearance options">
+              <p class="settings-title">Theme</p>
+              <button class="settings-option" type="button" data-theme-choice="pink" aria-pressed="true"><svg aria-hidden="true"><use href="#i-heart"></use></svg><span>Pink</span></button>
+              <button class="settings-option" type="button" data-theme-choice="dark" aria-pressed="false"><svg aria-hidden="true"><use href="#i-moon"></use></svg><span>Dark</span></button>
+              <p class="settings-title settings-effects">Effects</p>
+              <button class="settings-option settings-effects" id="cursor-motion-toggle" type="button" aria-pressed="true"><svg aria-hidden="true"><use href="#i-sparkle"></use></svg><span>Cursor effects</span><span class="settings-switch" aria-hidden="true"></span><span class="settings-state visually-hidden">On</span></button>
+            </div>
+          </div>
+          <a class="invite-small" href="https://discord.com/oauth2/authorize?client_id=1555693618373853305&amp;permissions=8&amp;integration_type=0&amp;scope=bot" target="_blank" rel="noopener noreferrer"><svg><use href="#i-discord"></use></svg>Invite bot</a>
+        </div>
+        <span class="scroll-progress" id="scroll-progress" aria-hidden="true"></span>
+      </header>
+      <div class="content">
+        <section class="page active" id="page-home" aria-labelledby="home-title">
+          <div class="hero">
+            <div class="hero-copy">
+              <div class="eyebrow"><svg><use href="#i-bot"></use></svg>Your all-in-one Discord bot</div>
+              <h1 id="home-title">Meet <span>Madoka.</span></h1>
+              <p>Madoka is an all-in-one Discord bot for server security, automoderation, music, games, and community tools—all in one place.</p>
+              <div class="hero-actions">
+                <a class="button-primary" href="https://discord.com/oauth2/authorize?client_id=1555693618373853305&amp;permissions=8&amp;integration_type=0&amp;scope=bot" target="_blank" rel="noopener noreferrer"><svg><use href="#i-discord"></use></svg>Add Madoka to Discord</a>
+                <button class="button-secondary" type="button" data-goto="commands"><svg><use href="#i-command"></use></svg>Explore commands</button>
+              </div>
+            </div>
+            <div class="hero-bot" aria-hidden="true"><div class="hero-bot-inner"><img src="madoka-avatar.gif" alt="" width="256" height="256" decoding="async"></div></div>
+          </div>
+          <section class="command-terminal" id="terminal" aria-labelledby="command-terminal-title">
+            <div class="t-window">
+              <div class="t-head">
+                <div class="terminal-lights" aria-hidden="true"><i></i><i></i><i></i></div>
+                <h2 id="command-terminal-title">madoka <span>command preview</span></h2>
+                <span class="t-badge">sample</span>
+              </div>
+              <div class="t-tabs" role="group" aria-label="Choose a command preview">
+                <button class="t-tab is-active" type="button" data-scene="0" aria-pressed="true">help</button>
+                <button class="t-tab" type="button" data-scene="1" aria-pressed="false">antinuke</button>
+                <button class="t-tab" type="button" data-scene="2" aria-pressed="false">ping</button>
+                <button class="t-tab" type="button" data-scene="3" aria-pressed="false">play</button>
+              </div>
+              <div class="t-body"><div class="t-out" id="terminal-out"></div></div>
+              <p class="command-terminal-caption">A visual sample only—not a live command or a change to your Discord server. Check the command library for the commands available to your bot.</p>
+            </div>
+          </section>
+          <div class="section-head">
+            <div><div class="eyebrow">At a glance</div><h2>Built for your server</h2></div>
+            <p>Useful tools and features from one Discord bot.</p>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-card"><span class="stat-icon"><svg><use href="#i-command-square"></use></svg></span><span><span class="stat-value" id="total-command-count">0</span><span class="stat-label">Total commands</span></span></div>
+            <div class="stat-card"><span class="stat-icon"><svg><use href="#i-shield"></use></svg></span><span><span class="stat-value">16</span><span class="stat-label">Main feature areas</span></span></div>
+            <div class="stat-card"><span class="stat-icon"><svg><use href="#i-users"></use></svg></span><span><span class="stat-value">Prefix <span class="prefix-mark">&gt;</span></span><span class="stat-label">Default prefix</span></span></div>
+          </div>
+          <div class="section-head">
+            <div><div class="eyebrow">What Madoka can do</div><h2>Main features</h2></div>
+          </div>
+          <div class="feature-grid" id="main-features"></div>
+          <div class="section-head">
+            <div><div class="eyebrow">And there's more</div><h2>Extra features</h2></div>
+          </div>
+          <div class="feature-grid" id="extra-features"></div>
+          <div class="support-banner">
+            <div><h3>Need help with the Discord bot?</h3><p>Join the support server for help, updates, and your free 7-day Premium trial. If something breaks, open a ticket there and the team will take a look.</p></div>
+            <div class="support-actions"><button class="button-secondary" type="button" data-goto="developers">Contact developers</button><a class="button-secondary" href="https://discord.gg/6e2Ab3DkYY" target="_blank" rel="noopener noreferrer"><svg><use href="#i-discord"></use></svg>Join support server</a></div>
+          </div>
+        </section>
+        <section class="page" id="page-docs" aria-labelledby="docs-title">
+          <div class="docs-layout">
+            <nav class="docs-side-nav" aria-label="Documentation sections">
+              <p class="docs-side-label"><svg aria-hidden="true"><use href="#i-sparkle"></use></svg>On this page<span class="docs-side-count" id="docs-side-count" aria-hidden="true">1/14</span></p>
+              <div class="docs-side-list" id="docs-side-list">
+                <span class="docs-side-indicator" aria-hidden="true"></span>
+                <a class="docs-side-link" href="#docs-title">Overview</a>
+                <a class="docs-side-link" href="#docs-add-bot">Add Madoka</a>
+                <a class="docs-side-link" href="#docs-start-title">Getting started</a>
+                <a class="docs-side-link" href="#docs-features">What Madoka can do</a>
+                <a class="docs-side-link" href="#docs-safety">Roles &amp; permissions</a>
+                <a class="docs-side-link" href="#docs-antinuke">Anti-nuke setup</a>
+                <a class="docs-side-link" href="#docs-premium-activation">Activate Premium</a>
+                <a class="docs-side-link" href="#docs-no-prefix">No-prefix &amp; trial</a>
+                <a class="docs-side-link" href="#docs-automod">AutoMod setup</a>
+                <a class="docs-side-link" href="#docs-prefix">Prefix &amp; slash commands</a>
+                <a class="docs-side-link" href="#docs-music">Music &amp; voice</a>
+                <a class="docs-side-link" href="#docs-community">Community &amp; integrations</a>
+                <a class="docs-side-link" href="#docs-troubleshooting">Troubleshooting</a>
+                <a class="docs-side-link" href="#docs-commands">Categories &amp; commands</a>
+              </div>
+            </nav>
+            <div class="docs-main">
+          <div class="page-title">
+            <div><div class="eyebrow"><svg><use href="#i-command-square"></use></svg>Madoka Discord bot</div><h1 id="docs-title">Docs, made simple.</h1><p>Choose a category to browse Madoka Discord bot commands and learn how to use them.</p></div>
+          </div>
+          <div class="docs-intro">
+            <div class="eyebrow">Quick start</div>
+            <h2>One prefix. Plenty to explore.</h2>
+            <p>Madoka is a Discord bot that helps with server safety, moderation, music, and community tools. Its default prefix is <code>&gt;</code>. Server administrators can change it with <code>setprefix !</code>; the exclamation mark is only an example. Slash commands can also be available in Discord's command menu.</p>
+          </div>
+          <section class="docs-section" id="docs-features" aria-labelledby="docs-features-title">
+            <div class="docs-section-heading"><div><div class="eyebrow">Meet your toolkit</div><h2 id="docs-features-title">What can Madoka do?</h2><p>A practical overview of the features available across the bot.</p></div></div>
+            <div class="docs-feature-grid">
+              <article class="docs-feature-card"><span class="docs-feature-tag">Protection</span><h3>Anti-nuke &amp; server safety</h3><p>Help protect a server from destructive actions with trusted-user controls and configurable protection. Set the rules deliberately, test with trusted staff, and keep recovery access limited to people you trust.</p></article>
+              <article class="docs-feature-card"><span class="docs-feature-tag">Automatic care</span><h3>Auto moderation</h3><p>Configure automated rules, blocked words, exclusions, punishments, and logs to reduce repetitive moderation. Begin with conservative rules, review false positives, then adjust what is allowed or ignored.</p></article>
+              <article class="docs-feature-card"><span class="docs-feature-tag">Staff tools</span><h3>Moderation &amp; audit</h3><p>Use moderation tools for member actions, warnings, message cleanup, channel controls, and server review. Check the target and requested action before running bulk or destructive commands.</p></article>
+              <article class="docs-feature-card"><span class="docs-feature-tag">Community</span><h3>Welcome, roles &amp; engagement</h3><p>Build a warmer server with welcome messages, autoroles, reaction roles, leveling, birthdays, giveaways, tickets, and custom replies. Most features need a one-time setup and channel or role permissions.</p></article>
+              <article class="docs-feature-card"><span class="docs-feature-tag">Voice</span><h3>Music &amp; voice channels</h3><p>Browse music playback and queue controls, plus voice-channel management such as join-to-create tools. The bot needs permission to view, connect to, and speak in the selected voice channels.</p></article>
+              <article class="docs-feature-card"><span class="docs-feature-tag">Everyday tools</span><h3>Utility, fun &amp; information</h3><p>Find server and member information, reminders, polls, calculators, profile tools, games, and other handy commands. Use the searchable library below to check a command's purpose and usage.</p></article>
+              <article class="docs-feature-card"><span class="docs-feature-tag">Customization</span><h3>Logging &amp; server setup</h3><p>Choose where supported events are recorded and configure the channels, roles, and messages used by server features. Keep log channels private when they contain moderation or member information.</p></article>
+              <article class="docs-feature-card"><span class="docs-feature-tag">More to explore</span><h3>Premium &amp; integrations</h3><p>Some extra commands and integrations depend on Premium or additional setup. Review the Premium page for the available plan details, and confirm an integration is enabled before troubleshooting its commands.</p></article>
+            </div>
+          </section>
+          <section class="docs-section docs-guide" aria-labelledby="docs-start-title">
+            <div class="docs-section-heading"><div><div class="eyebrow">Start here</div><h2 id="docs-start-title">Set up Madoka in your server</h2><p>A quick, safe checklist to help your community get started.</p></div></div>
+            <div class="docs-guide-grid">
+              <article class="docs-guide-card"><span class="docs-guide-step">01</span><h3>Invite the bot</h3><p>Use <a class="inline-link" href="https://discord.com/oauth2/authorize?client_id=1555693618373853305&amp;permissions=8&amp;integration_type=0&amp;scope=bot" target="_blank" rel="noopener noreferrer">Add Madoka to Discord</a>, choose a server where you can manage integrations, and review the requested permissions before confirming.</p></article>
+              <article class="docs-guide-card"><span class="docs-guide-step">02</span><h3>Choose a command channel</h3><p>Make sure Madoka can view the channel and send messages there. For moderation or setup actions, the bot and the person running the command also need the relevant Discord permissions.</p></article>
+              <article class="docs-guide-card"><span class="docs-guide-step">03</span><h3>Try a command</h3><p>Try <code>&gt;ping</code> or browse the categories below. Use the server's active prefix; <code>setprefix !</code> shows how an administrator could switch to <code>!</code>.</p></article>
+            </div>
+          </section>
+          <section class="docs-section docs-guide-details" aria-label="Madoka setup and help">
+            <details class="docs-guide-detail">
+              <summary id="docs-add-bot">How to add Madoka to your server</summary>
+              <div><p>Open the <a class="inline-link" href="https://discord.com/oauth2/authorize?client_id=1555693618373853305&amp;permissions=8&amp;integration_type=0&amp;scope=bot" target="_blank" rel="noopener noreferrer">Madoka invite page</a>, sign in to Discord if prompted, select the server, review the permissions, and authorize the bot. You need permission to manage that server's integrations. After Discord redirects you back, check the member list to confirm Madoka joined.</p><p>Then allow Madoka to view and send messages in the channel where you will test it. Try <code>&gt;ping</code> or use the command browser below. Ask a server administrator to review the invite permissions and role position before enabling moderation or protection features.</p></div>
+            </details>
+            <details class="docs-guide-detail">
+              <summary id="docs-safety">Permissions, roles, and server safety</summary>
+              <div><p>Discord controls what Madoka can do. Give it only the permissions its enabled features need, and keep its role below roles it should not manage. Commands such as ban, kick, channel locking, and role management depend on both Discord permissions and the bot role's position.</p><p>Use destructive actions carefully, review the target before confirming, and avoid sharing private tokens or account credentials. If a command is denied, check the bot's channel access, role position, and the permissions of the person running it.</p></div>
+            </details>
+            <details class="docs-guide-detail">
+              <summary id="docs-antinuke">Anti-nuke: enable protection carefully</summary>
+              <div><p>Start by choosing a private log channel and deciding which owner or staff accounts are trusted. Search the command browser for <code>antinuke</code> to confirm the exact setup commands supported by your server; command names and available thresholds can differ. The example <code>&gt;antinuke enable</code> is only a hint, not a guarantee of the command syntax.</p><p>Review the action limits, alerts, and whitelist before enabling protection. Add only people you already trust, test with a small staff group, and verify that Madoka's role can perform only the recovery actions you intend. Keep the log channel private and have a trusted administrator check the configuration after activation.</p></div>
+            </details>
+            <details class="docs-guide-detail">
+              <summary id="docs-premium-activation">How to activate Premium</summary>
+              <div><p>Open the <button class="inline-link" type="button" data-goto="premium">Premium page</button> and choose a plan: ₱199 monthly, ₱399 yearly, or ₱999 lifetime. This website does not take payments or activate Premium automatically. To arrange a plan, join the <a class="inline-link" href="https://discord.gg/6e2Ab3DkYY" target="_blank" rel="noopener noreferrer">support server</a> and open a ticket, or contact a Madoka developer.</p><p>Once Premium is enabled, check your server's status with <code>&gt;premstatus</code>. If it is not working or a Premium command returns an error, create a ticket in the support server with your server ID and the error message. Never send a Discord password, account token, or bot token.</p></div>
+            </details>
+            <details class="docs-guide-detail">
+              <summary id="docs-no-prefix">How do I get no-prefix access?</summary>
+              <div><p>No-prefix lets members run supported commands without typing the server prefix. For example, <code>&gt;ping</code> becomes <code>ping</code>. It is included with every Premium plan.</p><p>Want to try it first? Madoka has a <strong>7-day free trial</strong>. Join the <a class="inline-link" href="https://discord.gg/6e2Ab3DkYY" target="_blank" rel="noopener noreferrer">support server</a> and claim your trial there. Once the trial or Premium is active, run <code>&gt;premstatus</code> to confirm it.</p><p>Something not working or showing an error? Create a ticket in the support server and include your server ID and the error message.</p></div>
+            </details>
+            <details class="docs-guide-detail">
+              <summary id="docs-automod">AutoMod: rules, exclusions, and logs</summary>
+              <div><p>AutoMod can help apply consistent rules to common message patterns. Decide what should trigger a rule, what action should happen, and where staff can review the result. The example <code>&gt;automod</code> opens the feature's setup or help path where supported; use the command library below to find the exact command syntax available to your server.</p><p>Add exclusions carefully for trusted channels or roles, then test rules against harmless examples. Monitor false positives, make sure staff can see the configured log channel, and update the rules when your community's needs change.</p></div>
+            </details>
+            <details class="docs-guide-detail">
+              <summary id="docs-prefix">Prefix and slash commands</summary>
+              <div><p>The default prefix shown for Madoka is <code>&gt;</code>. A server administrator can change it with <code>setprefix !</code>; <code>!</code> is just an example, and your server may use a different prefix afterward. Put the active prefix directly before a prefix command, such as <code>&gt;help</code> with the default.</p><p>Slash commands are selected from Discord's built-in command menu and do not need a message prefix. Availability can depend on the command and server configuration. If a command appears unavailable, check whether it is prefix-based or slash-based and whether the bot has permission to respond in that channel.</p></div>
+            </details>
+            <details class="docs-guide-detail">
+              <summary id="docs-music">Music and voice troubleshooting</summary>
+              <div><p>For music commands, join the voice channel first and check that Madoka can view and connect to it. If playback or a command does not work, confirm the bot is online, the channel permissions allow it, and the command is available to your server. The bot may also need permission to speak, and the voice channel must not be full or otherwise inaccessible.</p><p>Some features require additional Discord permissions or server setup. Check the relevant category guide and ask in the support server if the issue continues. For join-to-create voice features, review the configured parent category and permissions before testing with a member account.</p></div>
+            </details>
+            <details class="docs-guide-detail">
+              <summary id="docs-community">Community tools and integrations</summary>
+              <div><p>Madoka's listed community tools include welcome messages, automatic roles, reaction roles, leveling, birthdays, giveaways, tickets, polls, custom replies, and invite tracking. These features help staff welcome people, organize support, and encourage participation. Check each command's description for the action it supports; many setup commands need a channel, role, or log destination chosen first.</p><p>Additional integrations such as Minecraft, join-to-create voice rooms, and Premium tools may need separate setup or access. Their availability can depend on the server and bot configuration, so check the command library and the bot's response instead of assuming an integration is enabled.</p></div>
+            </details>
+            <details class="docs-guide-detail">
+              <summary>Privacy, logs, and safe bot use</summary>
+              <div><p>Server moderators control which logging and moderation features they enable. Keep log and support-ticket channels visible only to the staff who need them, and review your server's own privacy rules before enabling member-tracking features such as invite or activity tools.</p><p>Never share bot tokens, passwords, or private credentials in commands, screenshots, or support requests. Give Madoka only the Discord permissions its enabled features require and review role access regularly.</p></div>
+            </details>
+            <details class="docs-guide-detail">
+              <summary id="docs-troubleshooting">A command is not responding — what should I check?</summary>
+              <div><p>First check that Madoka is online, that you are using the server's active prefix or a supported slash command, and that the bot can view and send messages in that channel. Check your own Discord permission, the bot's role position, and whether a feature needs a one-time setup.</p><p>For a denied action, review role hierarchy and channel overrides. For a setup issue, try the relevant help or configuration command from the library below. If the problem remains, create a ticket in the support server with the command name and a safe description of what happened—never include tokens, passwords, or private credentials.</p></div>
+            </details>
+            <details class="docs-guide-detail">
+              <summary>Where to get help</summary>
+              <div><p>Use the command search and category browser below to look up documented commands. For a bug report, include what you tried, the server/channel context, and any error message—but do not post passwords, bot tokens, or other secrets.</p><p>For help from the team, join the <a class="inline-link" href="https://discord.gg/6e2Ab3DkYY" target="_blank" rel="noopener noreferrer">support server</a> and create a ticket for errors, bug reports, or Premium questions. You can also visit the Madoka Developers page to contact the team directly.</p></div>
+            </details>
+          </section>
+          <section class="docs-section" aria-labelledby="docs-library-title">
+            <div class="docs-section-heading"><div><div class="eyebrow">Reference</div><h2 id="docs-library-title">Browse every category and command</h2><p>Pick a category to explore its commands, descriptions, and usage hints. Search works across category names and command details.</p></div></div>
+          </section>
+          <section class="docs-browser" id="docs-commands" aria-label="Browse documentation categories">
+            <div class="docs-toolbar">
+              <label class="search-wrap"><svg><use href="#i-search"></use></svg><input class="search-input" id="docs-search" type="search" placeholder="Find a category or command..." autocomplete="off" aria-label="Search documentation"></label>
+              <span class="docs-category-hint">Choose a category</span>
+            </div>
+            <div class="docs-category-grid" id="docs-category-grid" aria-label="Documentation categories"></div>
+          </section>
+          <section class="docs-results-panel" id="docs-results-panel" aria-live="polite" hidden>
+            <div class="docs-results-heading" id="docs-results-heading"></div>
+            <div class="docs-command-list" id="docs-command-list"></div>
+            <button class="docs-load-more" id="docs-load-more" type="button" hidden></button>
+            <div class="empty-state" id="docs-empty" hidden>No commands match your search. Try another word.</div>
+          </section>
+            </div>
+          </div>
+        </section>
+        <section class="page" id="page-premium" aria-labelledby="premium-title">
+          <div class="page-title">
+            <div><div class="eyebrow"><svg><use href="#i-shield"></use></svg>Extra perks</div><h1 id="premium-title">Madoka Premium</h1><p>Explore plans, Premium commands, and how to activate your server's access.</p></div>
+          </div>
+          <div class="premium-overview">
+            <div class="premium-banner">
+              <div><div class="eyebrow">More for your community</div><h2>Unlock more with Premium.</h2><p>Every Premium plan includes no-prefix access, so members can use supported commands without typing the server prefix. Choose a plan, then open a ticket in the support server to arrange access; this page does not process payments.</p></div>
+              <img src="https://cdn.discordapp.com/emojis/1557425083625242656.webp?size=96&amp;animated=true" alt="" loading="lazy" onerror="this.remove()">
+            </div>
+            <div class="premium-plans" aria-label="Premium plans">
+              <article class="premium-plan"><span class="premium-plan-label">Monthly</span><strong class="premium-price">₱199</strong><span class="premium-period">per month</span><p>Monthly Premium access with no-prefix included.</p></article>
+              <article class="premium-plan featured"><span class="premium-plan-label">Yearly</span><strong class="premium-price">₱399</strong><span class="premium-period">per year</span><p>One year of Premium access with no-prefix included.</p></article>
+              <article class="premium-plan"><span class="premium-plan-label">Lifetime</span><strong class="premium-price">₱999</strong><span class="premium-period">one-time</span><p>Lifetime Premium access with no-prefix included.</p></article>
+            </div>
+            <div class="trial-card">
+              <span class="stat-icon"><svg><use href="#i-sparkle"></use></svg></span>
+              <div><h3>Try Premium free for 7 days</h3><p>Join the support server and claim your trial there. Not sure how no-prefix works? <button class="inline-link" type="button" data-goto="docs" data-anchor="docs-no-prefix">Read the no-prefix guide</button>.</p></div>
+              <a class="button-primary" href="https://discord.gg/6e2Ab3DkYY" target="_blank" rel="noopener noreferrer"><svg><use href="#i-discord"></use></svg>Claim in support server</a>
+            </div>
+            <div class="premium-redeem">
+              <span class="stat-icon"><svg><use href="#i-shield"></use></svg></span>
+              <div><h3>No-prefix access is included</h3><p>Once Premium (or the 7-day trial) is active for your server, members can run supported commands without typing the prefix (for example, <code>&gt;ping</code> becomes <code>ping</code>). If no-prefix or another Premium feature gives an error, create a ticket in the support server.</p></div>
+            </div>
+            <section class="docs-section" aria-labelledby="premium-commands-title">
+              <h2 id="premium-commands-title">Premium command guide</h2>
+              <p>Use the server's prefix for the Premium commands below. To learn how to get no-prefix access, read the <button class="inline-link" type="button" data-goto="docs" data-anchor="docs-no-prefix">no-prefix guide</button> in the docs.</p>
+              <div id="premium-command-guide"></div>
+            </section>
+            <div class="docs-callout">Hit an error or have a question about Premium? Open a ticket in the <a class="inline-link" href="https://discord.gg/6e2Ab3DkYY" target="_blank" rel="noopener noreferrer">support server</a>, or visit <button class="inline-link" type="button" data-goto="developers">Madoka Developers</button>.</div>
+          </div>
+        </section>
+        <section class="page" id="page-developers" aria-labelledby="developers-title">
+          <div class="page-title">
+            <div><div class="eyebrow"><svg><use href="#i-users"></use></svg>Meet the team</div><h1 id="developers-title">Madoka Developers</h1><p>Contact the team for help with the Madoka Discord bot, bug reports, or Premium.</p></div>
+          </div>
+          <p class="developer-page-intro">Select a verified Madoka developer to open their Discord profile and ask about bot support, report a bug, or learn about Premium.</p>
+          <div class="developer-page-list">
+            <article class="developer-profile">
+              <img class="developer-profile-avatar" src="dev-keso.jpg" data-fallback="KE" alt="Keso's profile picture" width="168" height="168" loading="eager" decoding="async">
+              <div class="developer-profile-info"><h2 class="developer-name"><span class="developer-name-text">Keso</span><span class="verified-badge" role="img" aria-label="Verified developer" title="Verified developer"><svg aria-hidden="true"><use href="#i-check"></use></svg></span></h2><div class="developer-roles"><span class="developer-role">Bot Owner</span><span class="developer-role">Madoka Developer</span></div><a class="developer-profile-link" href="https://discord.com/users/1443924448230117436" target="_blank" rel="noopener noreferrer">Open Keso's Discord profile <svg><use href="#i-arrow"></use></svg></a></div>
+            </article>
+            <article class="developer-profile">
+              <img class="developer-profile-avatar" src="dev-7.jpg" data-fallback="7" alt="7's profile picture" width="168" height="168" loading="eager" decoding="async">
+              <div class="developer-profile-info"><h2 class="developer-name"><span class="developer-name-text">7</span><span class="verified-badge" role="img" aria-label="Verified developer" title="Verified developer"><svg aria-hidden="true"><use href="#i-check"></use></svg></span></h2><div class="developer-roles"><span class="developer-role">Web Developer</span><span class="developer-role">Madoka Developer</span></div><a class="developer-profile-link" href="https://discord.com/users/1488018421022195854" target="_blank" rel="noopener noreferrer">Open 7's Discord profile <svg><use href="#i-arrow"></use></svg></a></div>
+            </article>
+          </div>
+        </section>
+        <section class="page" id="page-commands" aria-labelledby="commands-title">
+          <div class="page-title">
+            <div><div class="eyebrow"><svg><use href="#i-command"></use></svg>Madoka Discord bot</div><h1 id="commands-title">Command library</h1><p>Browse commands for the Madoka Discord bot. Click the copy icon beside a command to copy it.</p></div>
+          </div>
+          <div class="coming-soon"><svg><use href="#i-sparkle"></use></svg>More commands are on the way. This library grows with every update.</div>
+          <div class="command-toolbar">
+            <label class="search-wrap"><svg><use href="#i-search"></use></svg><input class="search-input" id="command-search" type="search" placeholder="Search commands or categories..." autocomplete="off" aria-label="Search commands or categories"></label>
+            <details class="category-picker" id="category-picker">
+              <summary class="category-picker-trigger"><span id="category-filter-label">All categories</span><svg aria-hidden="true"><use href="#i-chevron"></use></svg></summary>
+              <div class="category-picker-menu" id="category-filter" role="listbox" aria-label="Filter by category"></div>
+            </details>
+          </div>
+          <div class="command-summary"><span id="result-count" aria-live="polite"></span><span>Click <strong>copy</strong> to copy the command</span></div>
+          <div class="command-groups" id="command-groups"></div>
+          <div class="empty-state" id="empty-state" hidden>No matching commands. Try another search.</div>
+        </section>
+        <footer class="page-footer">Powered by <strong>RiftNode Development.</strong> · Support server: <a href="https://discord.gg/6e2Ab3DkYY" target="_blank" rel="noopener noreferrer">Join on Discord</a></footer>
+      </div>
+    </main>
+  </div>
+  <button class="to-top" id="to-top" type="button" aria-label="Back to top" title="Back to top"><svg aria-hidden="true"><use href="#i-chevron"></use></svg></button>
+  <div class="toast" id="toast" role="status" aria-live="polite"><svg><use href="#i-check"></use></svg><span id="toast-message">Command copied!</span></div>
+  <script>
+const mainFeatures = [
+      ["Security", "Protect your server and keep members safe."],
+      ["Automoderation", "Let automatic moderation handle the busywork."],
+      ["Utility", "Helpful tools and useful server information."],
+      ["Music", "Bring music and playback controls to voice."],
+      ["Autoreact & responder", "Automate reactions and custom replies."],
+      ["Moderation", "Manage members and keep conversations on track."],
+      ["Autorole & Invc", "Manage roles and invitation rewards."],
+      ["Fun", "Lighthearted commands for your community."],
+      ["Games", "Play games together right in your server."],
+      ["Ignore Channels", "Choose where bot commands should work."],
+      ["Server", "Manage and explore your server."],
+      ["Voice", "Voice-channel controls and management."],
+      ["Welcomer", "Welcome members as they join."],
+      ["Giveaway", "Create and manage community giveaways."],
+      ["Ticket", "Organize member support with tickets."],
+      ["Invite Tracker", "Keep track of server invitations."]
+    ];
+    const extraFeatures = ["Advance Logging", "Vanityroles", "Counting", "J2C", "AI", "Boost", "Leveling", "Sticky", "Verification", "Encryption", "Minecraft", "Joindm", "Birthday", "Customrole", "Premium"];
+    const commandData = [
+      ["Antinuke", "antinuke, antinuke enable, antinuke disable, antinuke wizard, antinuke filters, antinuke logs, antinuke wl, antinuke unwl, antinuke wlist, antinuke wlreset"],
+      ["ExtraOwner", "extraowner set, extraowner reset, extraowner view, extraowner clear"],
+      ["AutoMod", "automod, automod enable, automod disable, automod manage, automod settings, automod rules, automod reset, automod logging"],
+      ["Whitelist", "automod wl channel, automod wl role, automod wl show, automod wl reset"],
+      ["Blacklist", "automod bl add, automod bl remove, automod bl list"],
+      ["AutoReact", "arc add, arc channel, arc remove, arc removechannel, arc list, arc clear"],
+      ["AutoResponder", "ar add, ar addcontains, ar addstart, ar remove, ar list, ar clear"],
+      ["Humans", "autorole humans add, autorole humans remove, autorole humans list"],
+      ["Bots", "autorole bots add, autorole bots remove, autorole bots list"],
+      ["Embed", "embed, embed create"],
+      ["General", "ping, pong, stats, uptime, system, profile"],
+      ["Giveaway", "giveaway, gstart, gend, greroll, glist, gdelete"],
+      ["Setup", "greet setup, greet channel, greet type, greet disable"],
+      ["Container Settings", "greet content, greet title, greet description, greet color, greet thumbnail, greet image"],
+      ["Other", "greet message, greet deleteafter, greet test, greet config, greet variables"],
+      ["Logging", "log setup, log set, log enable, log disable, log config, log types, log reset"],
+      ["Moderation", "ban, fakeban, softban, kick, mute, unmute, unban, nick, nuke, unbanall, snipe"],
+      ["Lock & Hide", "lock, unlock, lockall, unlockall, hide, unhide, hideall, unhideall, slowmode, unslowmode"],
+      ["Purge", "clear, clearall, clearuser, clearbots, clearembed, clearmentions, clearreactions, clearfiles, clearimages, clearemoji, clearcontain"],
+      ["Channel", "channel create, channel delete, channel rename, channel clone, channel transfer"],
+      ["List", "list hypesquad, list pending, list channels, list timeouts, list hasperms, list bans, list users, list boosters, list emojis, list bots, list admins, list mods, list roles, list invoice, list activedeveloper, list joinedat, list early, list inrole, list createdat, list bughunters"],
+      ["Playback", "play, pause, resume, skip, stop, nowplaying"],
+      ["Queue", "queue, shuffle, loop"],
+      ["Settings", "volume, 247, autoplay"],
+      ["NoPrefix", "np, np add, np remove, np list, np check"],
+      ["Premium", "premium, premstatus, activate, custombot, tag"],
+      ["Reaction Roles", "rr add, rr remove, rr list, rr clear"],
+      ["Role Management", "role add, role all, role bots, role colour, role create, role delete, role humans, role remove, role rename"],
+      ["Remove Role", "rrole, rrole humans, rrole bots, rrole all"],
+      ["Ticket", "ticket, ticket setup, ticket logs, ticket staff, ticket category, ticket config"],
+      ["Messages", "messages, addmessages, removemessages, resetmessages"],
+      ["Tracking", "blacklistchannel, unblacklistchannel, blacklistedchannels, invites, tracker"],
+      ["VoiceMaster", "voicemaster, voicemaster setup, voicemaster buttons, voicemaster config, voicemaster reset"]
+    ].map(([name, commands]) => [name, commands.split(",").map(command => command.trim()).filter(Boolean)]);
+    const totalCommandCount = commandData.reduce((total, [, commands]) => total + commands.length, 0);
+    document.getElementById("total-command-count").textContent = String(totalCommandCount);
+    const premiumCommandGroups = [
+      ["Premium Commands", [
+        ["premium", "Provides access to Premium commands and options."],
+        ["premstatus", "Checks Premium status."],
+        ["activate", "Activates Premium."],
+        ["custombot", "Provides access to custom bot options."],
+        ["tag", "Provides access to Premium tag options."]
+      ]]
+    ];
+
+    const featureCard = ([name, description], extra = false) =>
+      `<div class="feature-card${extra ? " extra" : ""}"><strong>${name}</strong><span>${description}</span></div>`;
+    document.getElementById("main-features").innerHTML = mainFeatures.map(item => featureCard(item)).join("");
+    const extraDescriptions = {
+      "Advance Logging": "Track joins, edits, deletes, and mod actions in log channels.",
+      "Vanityroles": "Reward members who show your vanity link in their status.",
+      "Counting": "A counting channel that keeps everyone in order.",
+      "J2C": "Join-to-create voice rooms that members control.",
+      "AI": "Chat with Madoka and use AI tools in your server.",
+      "Boost": "Thank boosters with messages and role rewards.",
+      "Leveling": "XP, ranks, and role rewards for active members.",
+      "Sticky": "Pin an important message to the bottom of a channel.",
+      "Verification": "Screen new members before they can chat.",
+      "Encryption": "Handy text encoding and hashing tools.",
+      "Minecraft": "Connect Madoka to your Minecraft server.",
+      "Joindm": "Send a welcome DM to every new member.",
+      "Birthday": "Celebrate member birthdays with announcements.",
+      "Customrole": "Let members make their own custom role.",
+      "Premium": "Unlock Premium commands and additional server features."
+    };
+    document.getElementById("extra-features").innerHTML = extraFeatures.map(name => featureCard([name, extraDescriptions[name] || "An extra tool for your server."], true)).join("");
+
+    const commandGroups = document.getElementById("command-groups");
+    const categoryFilter = document.getElementById("category-filter");
+    const categoryPicker = document.getElementById("category-picker");
+    const categoryFilterLabel = document.getElementById("category-filter-label");
+    const commandSearch = document.getElementById("command-search");
+    const resultCount = document.getElementById("result-count");
+    const emptyState = document.getElementById("empty-state");
+    const copyIcon = '<svg aria-hidden="true"><use href="#i-copy"></use></svg>';
+    let selectedCommandCategory = "";
+    const allCategoryOption = document.createElement("button");
+    allCategoryOption.className = "category-picker-option";
+    allCategoryOption.type = "button";
+    allCategoryOption.setAttribute("role", "option");
+    allCategoryOption.dataset.category = "";
+    allCategoryOption.setAttribute("aria-selected", "true");
+    allCategoryOption.textContent = "All categories";
+    categoryFilter.append(allCategoryOption);
+    commandData.forEach(([category, commands], index) => {
+      const option = document.createElement("button");
+      option.className = "category-picker-option";
+      option.type = "button";
+      option.setAttribute("role", "option");
+      option.dataset.category = category;
+      option.setAttribute("aria-selected", "false");
+      option.textContent = category;
+      categoryFilter.append(option);
+      const group = document.createElement("section");
+      group.className = "command-group";
+      group.dataset.category = category;
+      group.innerHTML = `<button class="group-head" type="button" aria-expanded="false"><span class="group-name"><span class="group-mark" aria-hidden="true">${category.charAt(0).toUpperCase()}</span>${category}</span><span class="group-count">${commands.length} ${commands.length === 1 ? "command" : "commands"}<svg aria-hidden="true"><use href="#i-chevron"></use></svg></span></button><div class="command-list" aria-hidden="true" inert><div class="command-list-inner">${commands.map(command => `<div class="command-item" data-command="${encodeURIComponent(command)}"><div class="command-item-copy"><code class="command-name">${command.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")}</code><span class="command-description"></span></div><button class="copy-button" type="button" aria-label="Copy ${command.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")}" title="Copy command">${copyIcon}</button></div>`).join("")}</div></div>`;
+      commandGroups.append(group);
+    });
+
+    const categoryDescriptions = {
+      Antinuke: "Protects the server from destructive actions and manages trusted users and filters.",
+      ExtraOwner: "Manages extra owners trusted by the server.",
+      AutoMod: "Configures automatic moderation, rules, and logging.",
+      Whitelist: "Manages the channels and roles exempted from automod.",
+      Blacklist: "Manages the automod blacklist.",
+      AutoReact: "Configures automatic reactions for channels and messages.",
+      AutoResponder: "Creates and manages automatic replies.",
+      Humans: "Configures autoroles for human members.",
+      Bots: "Configures autoroles for bots.",
+      Embed: "Creates embeds for the server.",
+      General: "Provides general bot and server information.",
+      Giveaway: "Starts, ends, rerolls, lists, and deletes giveaways.",
+      Setup: "Configures welcome messages and their destination or type.",
+      "Container Settings": "Edits the content and appearance of welcome-message embeds.",
+      Other: "Tests and manages welcome-message content and settings.",
+      Logging: "Configures which server events are recorded.",
+      Moderation: "Helps staff manage members and moderation actions.",
+      "Lock & Hide": "Controls channel access, visibility, and slowmode.",
+      Purge: "Bulk-deletes messages matching selected criteria.",
+      Channel: "Creates, deletes, renames, clones, and transfers channels.",
+      List: "Lists server members and resources by category.",
+      Playback: "Controls music playback in voice channels.",
+      Queue: "Views and controls the music queue.",
+      Settings: "Adjusts music playback settings.",
+      NoPrefix: "Manages and checks no-prefix command access.",
+      Premium: "Manages Premium access and custom bot features.",
+      "Reaction Roles": "Creates and manages reaction-role assignments.",
+      "Role Management": "Creates, assigns, removes, and edits server roles.",
+      "Remove Role": "Removes roles from members, bots, or everyone.",
+      Ticket: "Configures and manages member-support tickets.",
+      Messages: "Views, adds, removes, and resets message counts.",
+      Tracking: "Manages channel blacklists and invitation tracking.",
+      VoiceMaster: "Sets up and manages VoiceMaster channels and controls."
+    };
+    const specificCommandDescriptions = {
+      ping: "Checks Madoka's response latency.",
+      botinfo: "Shows information about Madoka.",
+      stats: "Shows Madoka's available statistics.",
+      invite: "Provides an invite link for Madoka.",
+      serverinfo: "Shows information about the current server.",
+      userinfo: "Shows information about a selected member.",
+      roleinfo: "Shows information about a selected role.",
+      avatar: "Displays a member's profile picture.",
+      banner: "Displays a member or server banner.",
+      servericon: "Displays the current server icon.",
+      membercount: "Shows how many members are in the server.",
+      poll: "Creates a poll for members to answer.",
+      play: "Starts playing a requested track in voice.",
+      queue: "Shows the current music queue.",
+      warn: "Issues a moderation warning to a member.",
+      ban: "Bans a member from the server.",
+      kick: "Removes a member from the server.",
+      mute: "Restricts a member from speaking.",
+      unban: "Removes a member's server ban.",
+      "gstart": "Starts a giveaway.",
+      "glist": "Lists current giveaways.",
+      gend: "Ends a giveaway.",
+      "/imagine": "Creates an AI-generated image from a text prompt.",
+      "ticket setup": "Creates the ticket panel members can use to contact server staff.",
+      "ticket close": "Closes the current support ticket.",
+      "ticket claim": "Assigns the current support ticket to you.",
+      "ticket transcript": "Creates a transcript of the current support ticket.",
+      whitelisted: "Lists users and roles currently trusted by the server's antinuke protection.",
+      "banner user": "Displays the profile banner for a selected member.",
+      "banner server": "Displays the current server banner.",
+      permissions: "Checks the permissions available to a member or role.",
+      enlargetopcheck: "Reviews role hierarchy and top-role protection for the server.",
+      imagine: "Creates an AI-generated image from a text prompt.",
+      howgay: "Returns a playful, fictional percentage for the fun command.",
+      lesbian: "Runs a lighthearted community fun interaction.",
+      cute: "Shows a playful cuteness result for a selected member.",
+      intelligence: "Returns a fictional intelligence score for entertainment.",
+      chutiya: "Runs a lighthearted community fun interaction.",
+      horny: "Runs a playful, non-serious fun interaction.",
+      tharki: "Runs a playful, non-serious fun interaction.",
+      gif: "Finds a GIF matching the provided search.",
+      iplookup: "Looks up public metadata for an IP address; it cannot identify a person's precise location.",
+      nitro: "Runs a Nitro-themed fun interaction; it does not generate or grant Discord Nitro.",
+      "country-guesser": "Starts a game where players guess a country.",
+      "lights-out": "Starts the Lights Out puzzle game.",
+      "2048": "Starts the number-merging puzzle game 2048.",
+      "memory-game": "Starts a memory-matching game.",
+      "number-slider": "Starts a sliding-number puzzle.",
+      battleship: "Starts a Battleship game.",
+      "connect-four": "Starts a Connect Four game.",
+      staff: "Views or manages the server's staff setup role.",
+      girl: "Views or manages the server's girl setup role.",
+      friend: "Views or manages the server's friend setup role.",
+      vip: "Views or manages the server's VIP setup role.",
+      guest: "Views or manages the server's guest setup role.",
+      addinvites: "Adds invite credits to a selected member.",
+      inviteleaderboard: "Shows the members with the most tracked invites.",
+      invitelogging: "Configures logging for tracked server invites.",
+      j2csetup: "Sets up join-to-create voice channels for the server.",
+      j2creset: "Resets the join-to-create voice-channel configuration.",
+      boostrole: "Configures the role reward given to server boosters.",
+      birthdaysetup: "Sets up the server's birthday feature and announcement options."
+    };
+    const commandRootDescriptions = {
+      antinuke: "Protects the server from destructive events and manages its safety settings.",
+      whitelist: "Manages members trusted by the server's antinuke protection.",
+      whitelistrole: "Manages trusted roles for the server's antinuke protection.",
+      unwhitelist: "Removes a member from the antinuke trusted list.",
+      unwhitelistrole: "Removes a role from the antinuke trusted list.",
+      extraowner: "Manages additional owners trusted by the server's protection tools.",
+      nightmode: "Controls the server's night-mode protection settings.",
+      reminder: "Creates or clears reminders for later.",
+      automod: "Controls automatic moderation rules, punishments, logs, and exclusions.",
+      blacklistword: "Manages blocked words, settings, and bypass lists.",
+      role: "Manages server roles, including creating, assigning, and editing roles.",
+      clear: "Bulk-deletes messages that match the selected criteria.",
+      voice: "Manages members and access in voice channels.",
+      play: "Plays a requested track in your current voice session.",
+      search: "Finds available music matching your search.",
+      queue: "Shows the tracks waiting in the music queue.",
+      filter: "Controls audio filters for music playback.",
+      greet: "Configures welcome messages and where they are sent.",
+      setup: "Creates or updates a server feature configuration.",
+      autorole: "Configures roles assigned automatically to joining members or bots.",
+      autoresponder: "Creates and manages automatic replies to matching messages.",
+      react: "Configures automatic reactions for messages.",
+      log: "Configures which server events are recorded.",
+      level: "Manages member XP, rank rewards, and leveling settings.",
+      verification: "Configures and manages the server verification process.",
+      birthday: "Manages member birthday dates and birthday features.",
+      joindm: "Configures direct messages sent to new members.",
+      minecraft: "Configures or checks Madoka's Minecraft integration.",
+      ai: "Controls Madoka's AI features and conversation settings.",
+      boost: "Configures server boost messages, channels, and role rewards.",
+      sticky: "Creates and manages persistent channel messages.",
+      media: "Configures media-channel behavior and bypass rules.",
+      ignore: "Controls which commands, channels, or users Madoka ignores.",
+      vcrole: "Manages roles associated with voice-channel activity.",
+      counting: "Configures the counting channel and its server settings.",
+      vanityroles: "Configures roles awarded for using a server vanity invite.",
+      invites: "Shows tracked invitation information for this server.",
+      gstart: "Starts a server giveaway.",
+      gend: "Ends a server giveaway.",
+      greroll: "Selects a new winner for a giveaway.",
+      glist: "Lists active giveaways.",
+      ban: "Bans a member from the server.",
+      kick: "Removes a member from the server.",
+      warn: "Issues a moderation warning to a member.",
+      mute: "Restricts a member from speaking.",
+      lock: "Prevents members from sending messages in a channel.",
+      unlock: "Restores members' ability to send messages in a channel.",
+      poll: "Creates a poll for server members.",
+      avatar: "Displays a member's profile picture.",
+      serverinfo: "Shows information about the current server.",
+      userinfo: "Shows information about a selected member.",
+      roleinfo: "Shows information about a selected role.",
+      ping: "Checks Madoka's response latency.",
+      ticket: "Manages member-support tickets.",
+      tickets: "Manages member-support tickets.",
+      backup: "Creates, lists, restores, or deletes saved server backups.",
+      botinfo: "Shows Madoka's bot profile and information.",
+      stats: "Shows Madoka's available statistics.",
+      invite: "Provides a link to invite Madoka to a server.",
+      boostcount: "Shows the server's current boost count.",
+      unbanall: "Unbans all banned users from the server.",
+      "joined-at": "Shows when a member joined the server.",
+      github: "Shares Madoka's project repository.",
+      vcinfo: "Shows information about the current voice channel.",
+      channelinfo: "Shows details about a selected channel.",
+      badges: "Shows a member's available Discord badges.",
+      timer: "Sets a timer and notifies you when it ends.",
+      status: "Shows or updates your current status.",
+      afk: "Sets an away message for when members mention you.",
+      hack: "Runs a fictional hacker-style fun interaction.",
+      token: "Runs the token-themed fun command; it does not reveal account credentials.",
+      users: "Lists members matching the selected server filter.",
+      wizz: "Runs a server-wizzing action; review its effects before use.",
+      urban: "Looks up a term in the Urban Dictionary.",
+      rickroll: "Shares a Rickroll with the server.",
+      hash: "Calculates a hash from the provided text.",
+      snipe: "Shows a recently deleted message when available.",
+      list: "Lists server members or items matching the selected list type.",
+      calculator: "Calculates a mathematical expression.",
+      audit: "Reviews recent moderation or server audit information.",
+      clearwarns: "Clears a member's recorded warnings.",
+      clone: "Clones the current channel.",
+      hide: "Hides the current channel from members.",
+      hideall: "Hides channels using the configured bulk action.",
+      nick: "Changes a member's server nickname.",
+      nuke: "Recreates the current channel; this is destructive and should be used carefully.",
+      roleicon: "Changes or views a role's icon.",
+      slowmode: "Sets the message slowmode for a channel.",
+      lockall: "Locks channels using the configured bulk action.",
+      unlockall: "Unlocks channels using the configured bulk action.",
+      steal: "Saves an emoji or sticker from a message to the server.",
+      unhide: "Makes the current channel visible to members again.",
+      unhideall: "Restores channel visibility using the configured bulk action.",
+      unslowmode: "Removes slowmode from a channel.",
+      removerole: "Removes a role from selected server members.",
+      deleteemoji: "Deletes a custom server emoji.",
+      deletesticker: "Deletes a custom server sticker.",
+      topcheck: "Checks or configures the server's top-role protection.",
+      loop: "Sets the repeat mode for music playback.",
+      autoplay: "Toggles automatic music recommendations after the queue ends.",
+      nowplaying: "Shows the track currently playing.",
+      shuffle: "Shuffles the current music queue.",
+      stop: "Stops music playback and clears the active session.",
+      skip: "Skips the currently playing track.",
+      seek: "Jumps to a position in the current track.",
+      join: "Connects Madoka to your voice channel.",
+      disconnect: "Disconnects Madoka from the voice channel.",
+      replay: "Restarts the currently playing track.",
+      clearqueue: "Clears the current music queue.",
+      pause: "Pauses music playback.",
+      resume: "Resumes paused music playback.",
+      volume: "Changes the music playback volume.",
+      ship: "Creates a playful compatibility result for two members.",
+      mydog: "Shows a dog-themed fun response.",
+      chat: "Starts an interactive chat response.",
+      translate: "Translates the provided text.",
+      weather: "Looks up weather information for a location.",
+      hug: "Sends a friendly hug interaction.",
+      kiss: "Sends a friendly kiss interaction.",
+      pat: "Sends a friendly pat interaction.",
+      cuddle: "Sends a friendly cuddle interaction.",
+      slap: "Sends a fictional slap interaction.",
+      tickle: "Sends a playful tickle interaction.",
+      spank: "Sends a fictional playful interaction.",
+      "8ball": "Answers a question with a magic eight-ball style response.",
+      truth: "Provides a truth prompt for a game.",
+      dare: "Provides a dare prompt for a game.",
+      blackjack: "Starts a game of blackjack.",
+      chess: "Starts or manages a chess game.",
+      "tic-tac-toe": "Starts a tic-tac-toe game.",
+      rps: "Plays rock-paper-scissors.",
+      wordle: "Starts a Wordle-style word guessing game.",
+      slots: "Plays the slot machine game.",
+      log: "Configures which server events are recorded.",
+      "setbirthday": "Sets a member's birthday.",
+      removebirthday: "Removes a saved member birthday.",
+      listbirthdays: "Lists saved member birthdays."
+    };
+    const commandActionLabels = {
+      enable: "Turn on",
+      disable: "Turn off",
+      on: "Turn on",
+      off: "Turn off",
+      add: "Add or assign",
+      create: "Create",
+      setup: "Set up",
+      start: "Start",
+      remove: "Remove",
+      delete: "Delete",
+      reset: "Reset",
+      clear: "Clear",
+      edit: "Edit",
+      update: "Update",
+      set: "Set",
+      config: "View or change",
+      status: "Check the current",
+      show: "View",
+      view: "View",
+      list: "List",
+      stats: "View statistics for",
+      leaderboard: "View the leaderboard for",
+      channel: "Set the channel for",
+      role: "Manage roles for",
+      user: "Manage a member in",
+      bypass: "Manage bypass rules for"
+    };
+    const commandFeatureNames = {
+      antinuke: "antinuke protection",
+      whitelist: "trusted-member whitelist",
+      whitelistrole: "trusted-role whitelist",
+      unwhitelist: "trusted-member whitelist",
+      unwhitelistrole: "trusted-role whitelist",
+      extraowner: "additional trusted owners",
+      nightmode: "night-mode protection",
+      reminder: "reminders",
+      automod: "automatic moderation",
+      blacklistword: "blocked-word rules",
+      role: "server roles",
+      clear: "message cleanup",
+      voice: "voice-channel members",
+      play: "music playback",
+      search: "music search",
+      queue: "the music queue",
+      filter: "music audio filters",
+      greet: "welcome messages",
+      setup: "this server feature",
+      autorole: "automatic role assignment",
+      autoresponder: "automatic replies",
+      react: "automatic reactions",
+      log: "server event logging",
+      level: "member leveling",
+      verification: "member verification",
+      birthday: "member birthdays",
+      joindm: "join direct messages",
+      minecraft: "Minecraft integration",
+      ai: "AI features",
+      boost: "server boost rewards",
+      sticky: "persistent channel messages",
+      media: "media channel settings",
+      ignore: "ignored commands, channels, and users",
+      vcrole: "voice-channel roles",
+      counting: "the server counting game",
+      vanityroles: "vanity invite roles",
+      invites: "server invite tracking",
+      backup: "server backups",
+      ban: "server bans",
+      kick: "member access",
+      warn: "member warnings",
+      mute: "member speaking permissions",
+      lock: "channel message permissions",
+      unlock: "channel message permissions",
+      poll: "server polls",
+      ticket: "support tickets",
+      tickets: "support tickets",
+      gstart: "a server giveaway",
+      gend: "a server giveaway",
+      greroll: "giveaway winners",
+      glist: "active giveaways"
+    };
+    Object.assign(specificCommandDescriptions, {
+      antinuke: "Shows the current antinuke protection status and available controls.",
+      "antinuke enable": "Enables antinuke protection for this server.",
+      "antinuke disable": "Disables antinuke protection for this server.",
+      "antinuke wizard": "Guides staff through configuring antinuke protection.",
+      "antinuke filters": "Views or configures the antinuke event filters.",
+      "antinuke logs": "Shows antinuke protection logs.",
+      "antinuke wl": "Adds a member or role to the antinuke whitelist.",
+      "antinuke unwl": "Removes a member or role from the antinuke whitelist.",
+      "antinuke wlist": "Lists members and roles on the antinuke whitelist.",
+      "antinuke wlreset": "Resets the antinuke whitelist.",
+      "extraowner set": "Adds an extra trusted owner to the server's protection configuration.",
+      "extraowner reset": "Resets the extra-owner configuration.",
+      "extraowner view": "Shows the configured extra owners.",
+      "extraowner clear": "Removes all configured extra owners.",
+      "automod manage": "Opens automod management options.",
+      "automod settings": "Views or changes automod settings.",
+      "automod rules": "Views or manages the server's automod rules.",
+      "automod reset": "Resets the server's automod configuration.",
+      "automod logging": "Configures where automod actions are logged.",
+      "automod wl channel": "Adds or removes a channel from the automod whitelist.",
+      "automod wl role": "Adds or removes a role from the automod whitelist.",
+      "automod wl show": "Lists channels and roles on the automod whitelist.",
+      "automod wl reset": "Resets the automod whitelist.",
+      "automod bl add": "Adds a word, member, or role to the automod blacklist.",
+      "automod bl remove": "Removes an entry from the automod blacklist.",
+      "automod bl list": "Lists the current automod blacklist entries.",
+      "arc add": "Adds an automatic reaction rule.",
+      "arc channel": "Sets or views the channel used by an automatic reaction rule.",
+      "arc remove": "Removes an automatic reaction rule.",
+      "arc removechannel": "Removes an automatic reaction channel configuration.",
+      "arc list": "Lists configured automatic reaction rules.",
+      "arc clear": "Clears automatic reaction rules.",
+      "ar add": "Adds an automatic reply for an exact message match.",
+      "ar addcontains": "Adds an automatic reply triggered when a message contains matching text.",
+      "ar addstart": "Adds an automatic reply triggered when a message starts with matching text.",
+      "ar remove": "Removes an automatic reply rule.",
+      "ar list": "Lists configured automatic replies.",
+      "ar clear": "Clears configured automatic replies.",
+      "autorole humans add": "Assigns a role automatically to new human members.",
+      "autorole humans remove": "Removes a role from automatic assignment to human members.",
+      "autorole humans list": "Lists roles automatically assigned to human members.",
+      "autorole bots add": "Assigns a role automatically to newly joined bots.",
+      "autorole bots remove": "Removes a role from automatic assignment to bots.",
+      "autorole bots list": "Lists roles automatically assigned to bots.",
+      "embed create": "Starts creating a custom embed for the server.",
+      pong: "Replies with a simple pong response.",
+      uptime: "Shows how long Madoka has been online.",
+      system: "Shows bot process and system status information.",
+      profile: "Shows a member profile.",
+      giveaway: "Opens giveaway commands and options.",
+      gdelete: "Deletes a giveaway from the server.",
+      "greet setup": "Starts configuring welcome messages for the server.",
+      "greet channel": "Sets the channel where welcome messages are sent.",
+      "greet type": "Sets the style or type of the welcome message.",
+      "greet disable": "Disables welcome messages.",
+      "greet content": "Sets the text shown in the welcome message.",
+      "greet title": "Sets the title of the welcome-message embed.",
+      "greet description": "Sets the description of the welcome-message embed.",
+      "greet color": "Sets the color of the welcome-message embed.",
+      "greet thumbnail": "Sets the thumbnail image of the welcome-message embed.",
+      "greet image": "Sets the main image of the welcome-message embed.",
+      "greet message": "Views or changes the welcome-message template.",
+      "greet deleteafter": "Sets how long after sending a welcome message it is deleted.",
+      "greet test": "Sends a test welcome message using the current configuration.",
+      "greet config": "Shows the current welcome-message configuration.",
+      "greet variables": "Lists placeholders available in welcome-message templates.",
+      "log setup": "Starts configuring server event logging.",
+      "log set": "Sets the destination or options for server event logs.",
+      "log enable": "Enables server event logging.",
+      "log disable": "Disables server event logging.",
+      "log config": "Shows the current server event logging configuration.",
+      "log types": "Lists the server event types available for logging.",
+      "log reset": "Resets server event logging settings.",
+      fakeban: "Shows a simulated ban message without banning the member.",
+      softban: "Bans and immediately unbans a member to remove their recent messages.",
+      unmute: "Removes the server mute or timeout from a member.",
+      nick: "Changes a member's server nickname.",
+      unbanall: "Removes bans for all users in the server ban list.",
+      "lockall": "Locks eligible server channels.",
+      "unlockall": "Unlocks channels locked by the server's bulk lock action.",
+      hide: "Hides the current channel from the selected member group.",
+      unhide: "Restores the current channel's visibility.",
+      hideall: "Hides eligible server channels.",
+      unhideall: "Restores visibility for channels hidden by the bulk action.",
+      slowmode: "Sets a message slowmode interval for the current channel.",
+      unslowmode: "Removes the slowmode interval from the current channel.",
+      clearall: "Bulk-deletes recent messages from the current channel.",
+      clearuser: "Deletes recent messages sent by a selected user.",
+      clearbots: "Deletes recent messages sent by bots.",
+      clearembed: "Deletes recent messages containing embeds.",
+      clearmentions: "Deletes recent messages containing mentions.",
+      clearreactions: "Removes reactions from recent messages.",
+      clearfiles: "Deletes recent messages containing file attachments.",
+      clearimages: "Deletes recent messages containing images.",
+      clearemoji: "Deletes recent messages containing emoji.",
+      clearcontain: "Deletes recent messages containing the specified text.",
+      "channel create": "Creates a new server channel.",
+      "channel delete": "Deletes a server channel.",
+      "channel rename": "Changes a server channel's name.",
+      "channel clone": "Creates a copy of a server channel.",
+      "channel transfer": "Transfers channel ownership or configuration as supported by the bot.",
+      "list channels": "Lists channels in the server.",
+      "list timeouts": "Lists members currently timed out in the server.",
+      "list hasperms": "Lists members or roles with the selected server permissions.",
+      "list bans": "Lists users banned from the server.",
+      "list users": "Lists server members.",
+      "list roles": "Lists roles in the server.",
+      "list mods": "Lists server moderators.",
+      "list admins": "Lists server administrators.",
+      "list joinedat": "Shows member join dates.",
+      "list createdat": "Shows account creation dates for server members.",
+      "list inrole": "Lists members who have a selected role.",
+      "list pending": "Lists members with a pending server membership screening step.",
+      "list hypesquad": "Lists server members with a HypeSquad badge.",
+      "list early": "Lists members with early Discord supporter badges.",
+      "list activedeveloper": "Lists members with the Active Developer badge.",
+      "list bughunters": "Lists members with a Discord Bug Hunter badge.",
+      pause: "Pauses the currently playing track.",
+      resume: "Resumes paused music playback.",
+      skip: "Skips the currently playing track and advances the queue.",
+      stop: "Stops playback and clears the active music session.",
+      nowplaying: "Shows the track currently playing.",
+      queue: "Shows tracks waiting to play in the current music queue.",
+      shuffle: "Randomizes the order of tracks in the current queue.",
+      loop: "Changes the repeat mode for the current track or queue.",
+      volume: "Shows or changes the music playback volume.",
+      "247": "Keeps the bot connected to the voice channel when the queue is empty.",
+      autoplay: "Toggles automatic track recommendations when the queue ends.",
+      np: "Shows the no-prefix access options for this server.",
+      "np add": "Grants a member no-prefix command access.",
+      "np remove": "Removes a member's no-prefix command access.",
+      "np list": "Lists members with no-prefix command access.",
+      "np check": "Checks whether a member has no-prefix command access.",
+      premium: "Shows Premium access options.",
+      premstatus: "Shows the server's Premium status.",
+      activate: "Activates Premium for the server.",
+      custombot: "Opens Premium custom-bot options.",
+      tag: "Manages the server's Premium tag.",
+      "rr add": "Creates a reaction-role assignment.",
+      "rr remove": "Removes a reaction-role assignment.",
+      "rr list": "Lists configured reaction roles.",
+      "rr clear": "Removes all reaction-role assignments.",
+      "role add": "Assigns a role to a selected member.",
+      "role all": "Assigns a role to all eligible server members.",
+      "role bots": "Assigns a role to bots in the server.",
+      "role color": "Changes a role's display color.",
+      "role create": "Creates a server role.",
+      "role delete": "Deletes a server role.",
+      "role humans": "Assigns a role to human server members.",
+      "role remove": "Removes a role from a selected member.",
+      "role rename": "Changes a server role's name.",
+      rrole: "Removes a role from selected server members.",
+      "rrole humans": "Removes a role from all human members.",
+      "rrole bots": "Removes a role from all bots.",
+      "rrole all": "Removes a role from all eligible server members.",
+      ticket: "Shows member-support ticket commands and options.",
+      "ticket setup": "Creates or updates the server's support ticket panel.",
+      "ticket logs": "Shows or configures ticket activity logs.",
+      "ticket staff": "Sets or views the staff role for support tickets.",
+      "ticket category": "Sets or views the category used for support ticket channels.",
+      "ticket config": "Shows the current support ticket configuration.",
+      messages: "Shows the server's message activity counts.",
+      addmessages: "Adds message activity to a selected member's count.",
+      removemessages: "Removes message activity from a selected member's count.",
+      resetmessages: "Resets message activity counts.",
+      blacklistchannel: "Adds the current channel to the server's channel blacklist.",
+      unblacklistchannel: "Removes the current channel from the channel blacklist.",
+      blacklistedchannels: "Lists channels currently on the channel blacklist.",
+      invites: "Shows tracked invite counts for the server or a member.",
+      tracker: "Shows or configures server invitation tracking.",
+      voicemaster: "Shows VoiceMaster setup and channel-control options.",
+      "voicemaster setup": "Sets up VoiceMaster for the server.",
+      "voicemaster buttons": "Configures the buttons shown on VoiceMaster control panels.",
+      "voicemaster config": "Shows the current VoiceMaster configuration.",
+      "voicemaster reset": "Resets the VoiceMaster configuration."
+    });
+    Object.assign(commandRootDescriptions, {
+      antinuke: "Configures server protection against destructive actions and provides trusted-user controls.",
+      extraowner: "Manages extra owners trusted by server protection features.",
+      automod: "Manages automatic moderation settings, rules, whitelists, blacklists, and logs.",
+      arc: "Creates and manages automatic reaction rules and channels.",
+      ar: "Creates and manages automatic replies triggered by matching messages.",
+      autorole: "Manages roles automatically assigned to new human members and bots.",
+      embed: "Creates custom Discord embeds.",
+      uptime: "Shows how long Madoka has been running.",
+      system: "Shows Madoka's runtime and system status.",
+      profile: "Shows a Discord member's profile information.",
+      giveaway: "Manages server giveaways.",
+      greet: "Configures welcome messages, their style, and their content.",
+      log: "Configures server event logging.",
+      fakeban: "Displays a simulated ban action without actually banning a member.",
+      softban: "Bans and immediately unbans a member to remove recent messages.",
+      unmute: "Removes a member's mute or timeout.",
+      nick: "Changes a member's server nickname.",
+      unbanall: "Unbans every user in the server ban list.",
+      clearall: "Bulk-deletes recent messages in the current channel.",
+      clearuser: "Deletes recent messages from a selected user.",
+      clearbots: "Deletes recent messages sent by bots.",
+      clearembed: "Deletes recent messages containing embeds.",
+      clearmentions: "Deletes recent messages containing mentions.",
+      clearreactions: "Removes reactions from recent messages.",
+      clearfiles: "Deletes recent messages containing file attachments.",
+      clearimages: "Deletes recent messages containing images.",
+      clearemoji: "Deletes recent messages containing emoji.",
+      channel: "Creates and manages server channels.",
+      list: "Lists members, channels, roles, moderation states, and other server information.",
+      np: "Manages member access to no-prefix commands.",
+      premstatus: "Shows the server's Premium status.",
+      activate: "Activates Premium for the server.",
+      custombot: "Manages Premium custom-bot options.",
+      tag: "Manages Premium tag options.",
+      rr: "Creates and manages reaction-role assignments.",
+      rrole: "Removes roles from selected groups of server members.",
+      ticket: "Configures and manages member-support tickets.",
+      messages: "Shows and manages server message activity counts.",
+      addmessages: "Adds to a member's message activity count.",
+      removemessages: "Removes from a member's message activity count.",
+      resetmessages: "Resets message activity counts.",
+      blacklistchannel: "Adds a channel to the channel blacklist.",
+      unblacklistchannel: "Removes a channel from the channel blacklist.",
+      blacklistedchannels: "Lists blacklisted server channels.",
+      tracker: "Shows or configures server invite tracking.",
+      voicemaster: "Sets up and manages VoiceMaster channels and controls."
+    });
+    Object.assign(commandFeatureNames, {
+      arc: "automatic reaction rules",
+      ar: "automatic reply rules",
+      automod: "automatic moderation rules and settings",
+      extraowner: "trusted extra owners",
+      np: "no-prefix access",
+      rr: "reaction-role assignments",
+      rrole: "member roles",
+      greet: "welcome messages",
+      log: "server event logging",
+      clearall: "messages in this channel",
+      clearuser: "messages from the selected member",
+      clearbots: "messages sent by bots",
+      clearfiles: "messages with file attachments",
+      clearimages: "messages with images",
+      clearembed: "messages with embeds",
+      clearmentions: "messages with mentions",
+      clearreactions: "message reactions",
+      clearemoji: "messages containing emoji",
+      voicemaster: "VoiceMaster settings",
+      ticket: "support ticket settings"
+    });
+    function describeCommand(category, command) {
+      const normalized = command.toLowerCase().replace(/^[>/]/, "").trim();
+      if (specificCommandDescriptions[normalized]) return specificCommandDescriptions[normalized];
+      const [root, ...subcommands] = normalized.split(/\s+/);
+      const rootDescription = commandRootDescriptions[root];
+      if (!rootDescription) return `${command.replace(/^[>/]/, "")} is a ${category.toLowerCase()} command. ${categoryDescriptions[category] || "Use it to manage a feature in your server."}`;
+      const action = subcommands.find(part => Object.hasOwn(commandActionLabels, part));
+      if (!action) return rootDescription;
+      const actionLabel = commandActionLabels[action];
+      const feature = commandFeatureNames[root] || root.replace(/[-_]/g, " ");
+      return `${actionLabel} ${feature} for this server.`;
+    }
+    commandGroups.querySelectorAll(".command-item").forEach(item => {
+      const category = item.closest(".command-group").dataset.category;
+      const command = decodeURIComponent(item.dataset.command);
+      item.querySelector(".command-description").textContent = describeCommand(category, command);
+      item.dataset.description = item.querySelector(".command-description").textContent.toLowerCase();
+    });
+    const docsCategoryGrid = document.getElementById("docs-category-grid");
+    const docsSearch = document.getElementById("docs-search");
+    const docsResultsPanel = document.getElementById("docs-results-panel");
+    const docsResultsHeading = document.getElementById("docs-results-heading");
+    const docsList = document.getElementById("docs-command-list");
+    const docsEmpty = document.getElementById("docs-empty");
+    const docsLoadMore = document.getElementById("docs-load-more");
+    let selectedDocsCategory = "";
+    let visibleDocCount = 8;
+    const documentedCommands = commandData.flatMap(([category, commands]) => commands.map(command => {
+      const description = describeCommand(category, command);
+      return { category, command, description, search: `${category} ${command} ${description}`.toLowerCase() };
+    }));
+    commandData.forEach(([category, commands], index) => {
+      const button = document.createElement("button");
+      button.className = "docs-category-button";
+      button.type = "button";
+      button.dataset.category = category;
+      button.setAttribute("aria-pressed", "false");
+      const mark = document.createElement("span");
+      mark.className = "docs-category-icon";
+      mark.textContent = category.charAt(0).toUpperCase();
+      mark.setAttribute("aria-hidden", "true");
+      const copy = document.createElement("span");
+      copy.className = "docs-category-copy";
+      const name = document.createElement("strong");
+      name.textContent = category;
+      const description = document.createElement("span");
+      description.textContent = categoryDescriptions[category] || "Explore commands for this part of your server.";
+      copy.append(name, description);
+      const count = document.createElement("span");
+      count.className = "docs-category-count";
+      count.textContent = String(commands.length);
+      const arrow = document.createElement("span");
+      arrow.className = "docs-category-arrow";
+      arrow.innerHTML = '<svg aria-hidden="true"><use href="#i-arrow"></use></svg>';
+      button.append(mark, copy, count, arrow);
+      docsCategoryGrid.append(button);
+    });
+    function createDocCommandCard({ category, command, description }) {
+      const card = document.createElement("article");
+      card.className = "doc-command";
+      const head = document.createElement("div");
+      head.className = "doc-command-head";
+      const title = document.createElement("h3");
+      title.textContent = command;
+      const categoryLabel = document.createElement("span");
+      categoryLabel.className = "doc-category";
+      categoryLabel.textContent = category;
+      head.append(title, categoryLabel);
+      const summary = document.createElement("p");
+      summary.textContent = description;
+      const usage = document.createElement("div");
+      usage.className = "doc-usage";
+      const usageLabel = document.createElement("span");
+      usageLabel.className = "doc-usage-label";
+      usageLabel.textContent = "Command";
+      const code = document.createElement("code");
+      code.textContent = command;
+      const copyButton = document.createElement("button");
+      copyButton.className = "copy-button";
+      copyButton.type = "button";
+      copyButton.title = "Copy command";
+      copyButton.setAttribute("aria-label", `Copy ${command}`);
+      copyButton.innerHTML = copyIcon;
+      copyButton.addEventListener("click", () => copyCommand(code.textContent, copyButton));
+      usage.append(usageLabel, code, copyButton);
+      card.append(head, summary, usage);
+      return card;
+    }
+    const premiumCommandGuide = document.getElementById("premium-command-guide");
+    premiumCommandGroups.forEach(([groupName, commands]) => {
+      const group = document.createElement("section");
+      group.className = "premium-command-group";
+      const heading = document.createElement("h3");
+      heading.textContent = groupName;
+      const list = document.createElement("div");
+      list.className = "premium-command-list";
+      commands.forEach(([command, description]) => {
+        const card = document.createElement("article");
+        card.className = "premium-command";
+        const code = document.createElement("code");
+        code.textContent = command;
+        const copyButton = document.createElement("button");
+        copyButton.className = "copy-button";
+        copyButton.type = "button";
+        copyButton.title = "Copy command";
+        copyButton.setAttribute("aria-label", `Copy ${command}`);
+        copyButton.innerHTML = copyIcon;
+        copyButton.addEventListener("click", () => copyCommand(command, copyButton));
+        const text = document.createElement("p");
+        text.textContent = description;
+        card.append(code, copyButton, text);
+        list.append(card);
+      });
+      group.append(heading, list);
+      premiumCommandGuide.append(group);
+    });
+    function filterDocs() {
+      const query = docsSearch.value.trim().toLowerCase();
+      docsCategoryGrid.querySelectorAll(".docs-category-button").forEach(button => {
+        const category = button.dataset.category;
+        const categoryCommands = documentedCommands.filter(item => item.category === category);
+        const matchesSearch = !query || category.toLowerCase().includes(query) || categoryCommands.some(item => item.search.includes(query));
+        button.hidden = !matchesSearch;
+        button.classList.toggle("selected", category === selectedDocsCategory);
+        button.setAttribute("aria-pressed", String(category === selectedDocsCategory));
+      });
+      const results = documentedCommands.filter(item =>
+        (!selectedDocsCategory || item.category === selectedDocsCategory) &&
+        (!query || item.search.includes(query))
+      );
+      docsResultsPanel.hidden = !selectedDocsCategory && !query;
+      docsList.replaceChildren(...results.slice(0, visibleDocCount).map(createDocCommandCard));
+      docsEmpty.hidden = results.length > 0;
+      docsLoadMore.hidden = results.length <= visibleDocCount;
+      docsLoadMore.textContent = `Show ${Math.min(8, results.length - visibleDocCount)} more commands`;
+      docsResultsHeading.replaceChildren();
+      if (docsResultsPanel.hidden) return;
+      const headingCopy = document.createElement("div");
+      const heading = document.createElement("h2");
+      heading.textContent = selectedDocsCategory || "Search results";
+      const summary = document.createElement("p");
+      const searchSummary = query ? ` matching "${docsSearch.value.trim()}"` : "";
+      summary.textContent = `${results.length} ${results.length === 1 ? "command" : "commands"}${searchSummary}`;
+      headingCopy.append(heading, summary);
+      const backButton = document.createElement("button");
+      backButton.className = "docs-back-button";
+      backButton.type = "button";
+      backButton.textContent = "All categories";
+      backButton.addEventListener("click", () => {
+        selectedDocsCategory = "";
+        visibleDocCount = 8;
+        filterDocs();
+      });
+      docsResultsHeading.append(headingCopy, backButton);
+    }
+    docsCategoryGrid.addEventListener("click", event => {
+      const button = event.target.closest(".docs-category-button");
+      if (!button) return;
+      selectedDocsCategory = button.dataset.category;
+      visibleDocCount = 8;
+      filterDocs();
+    });
+    docsSearch.addEventListener("input", () => {
+      visibleDocCount = 8;
+      filterDocs();
+    });
+    docsLoadMore.addEventListener("click", () => {
+      visibleDocCount += 8;
+      filterDocs();
+    });
+    filterDocs();
+
+    function filterCommands() {
+      const query = commandSearch.value.trim().toLowerCase();
+      const category = selectedCommandCategory;
+      let visibleCommands = 0;
+      let visibleCategories = 0;
+      commandGroups.querySelectorAll(".command-group").forEach(group => {
+        const categoryMatches = !category || group.dataset.category === category;
+        const searchInCategory = group.dataset.category.toLowerCase().includes(query);
+        let visibleInGroup = 0;
+        group.querySelectorAll(".command-item").forEach(item => {
+          const command = decodeURIComponent(item.dataset.command);
+          const match = categoryMatches && (!query || searchInCategory || command.toLowerCase().includes(query) || item.dataset.description.includes(query));
+          item.hidden = !match;
+          if (match) visibleInGroup++;
+        });
+        group.hidden = !categoryMatches || visibleInGroup === 0;
+        const header = group.querySelector(".group-head");
+        const list = group.querySelector(".command-list");
+        const expanded = Boolean(query || category) || header.dataset.expanded === "true";
+        setCommandGroupExpanded(header, expanded);
+        header.setAttribute("aria-expanded", String(expanded));
+        if (!group.hidden) {
+          visibleCategories++;
+          visibleCommands += visibleInGroup;
+        }
+      });
+      resultCount.innerHTML = `<strong>${visibleCommands}</strong> listed ${visibleCommands === 1 ? "command" : "commands"} across <strong>${visibleCategories}</strong> ${visibleCategories === 1 ? "category" : "categories"} · ${totalCommandCount} total in Madoka`;
+      emptyState.hidden = visibleCommands !== 0;
+    }
+    function setCommandGroupExpanded(header, expanded) {
+      const list = header.nextElementSibling;
+      list.classList.toggle("is-open", expanded);
+      list.setAttribute("aria-hidden", String(!expanded));
+      list.inert = !expanded;
+    }
+    commandSearch.addEventListener("input", filterCommands);
+    categoryFilter.addEventListener("click", event => {
+      const option = event.target.closest(".category-picker-option");
+      if (!option) return;
+      selectedCommandCategory = option.dataset.category;
+      categoryFilterLabel.textContent = selectedCommandCategory || "All categories";
+      categoryFilter.querySelectorAll(".category-picker-option").forEach(item => {
+        item.setAttribute("aria-selected", String(item === option));
+      });
+      categoryPicker.open = false;
+      filterCommands();
+    });
+    commandGroups.addEventListener("click", event => {
+      const header = event.target.closest(".group-head");
+      if (!header) return;
+      const expanded = header.getAttribute("aria-expanded") !== "true";
+      header.dataset.expanded = String(expanded);
+      if (commandSearch.value.trim() || selectedCommandCategory) {
+        setCommandGroupExpanded(header, expanded);
+        header.setAttribute("aria-expanded", String(expanded));
+      } else {
+        filterCommands();
+      }
+    });
+    filterCommands();
+
+    const toast = document.getElementById("toast");
+    let toastTimer;
+    function flashCopied(button) {
+      if (!button) return;
+      const use = button.querySelector("use");
+      button.classList.add("is-copied");
+      if (use) use.setAttribute("href", "#i-check");
+      clearTimeout(button._copiedTimer);
+      button._copiedTimer = setTimeout(() => {
+        button.classList.remove("is-copied");
+        if (use) use.setAttribute("href", "#i-copy");
+      }, 1500);
+    }
+    async function copyCommand(command, button) {
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(command);
+        } else {
+          const temporaryInput = document.createElement("textarea");
+          temporaryInput.value = command;
+          temporaryInput.style.position = "fixed";
+          temporaryInput.style.opacity = "0";
+          document.body.append(temporaryInput);
+          temporaryInput.select();
+          const copied = document.execCommand("copy");
+          temporaryInput.remove();
+          if (!copied) throw new Error("Clipboard access is unavailable.");
+        }
+        document.getElementById("toast-message").textContent = `Copied "${command}"`;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove("show"), 2100);
+        flashCopied(button);
+      } catch (error) {
+        document.getElementById("toast-message").textContent = "Couldn't copy. Please copy the command manually.";
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove("show"), 3200);
+        console.error("Unable to copy command to clipboard:", error);
+      }
+    }
+    commandGroups.addEventListener("click", event => {
+      const button = event.target.closest(".copy-button");
+      if (!button) return;
+      const item = button.closest(".command-item");
+      copyCommand(decodeURIComponent(item.dataset.command), button);
+    });
+
+    document.querySelectorAll(".developer-profile-avatar").forEach(image => {
+      const showAvatarFallback = () => {
+        const fallback = document.createElement("span");
+        fallback.className = "developer-profile-avatar-fallback";
+        fallback.textContent = image.dataset.fallback || "?";
+        fallback.setAttribute("aria-hidden", "true");
+        image.replaceWith(fallback);
+      };
+      image.addEventListener("error", showAvatarFallback, { once: true });
+      if (image.complete && image.naturalWidth === 0) showAvatarFallback();
+    });
+
+    /* ===== Helpers ===== */
+    const root = document.documentElement;
+    const store = {
+      get(key) { try { return localStorage.getItem(key); } catch { return null; } },
+      set(key, value) { try { localStorage.setItem(key, value); } catch { /* private mode */ } }
+    };
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+    /* ===== Pages (may back button na) ===== */
+    const pageNames = { home: "Home", docs: "Docs", commands: "Commands", premium: "Premium", developers: "Madoka Developers" };
+    const pageTitles = { home: "Madoka - All in One", docs: "Docs - Madoka", commands: "Commands - Madoka", premium: "Premium - Madoka", developers: "Madoka Developers" };
+    let currentPage = "home";
+    let lastSpyIndex = -1;
+    function showPage(pageName, { push = true } = {}) {
+      if (!pageNames[pageName] || pageName === currentPage) return;
+      currentPage = pageName;
+      if (pageName === "docs") lastSpyIndex = -1;
+      document.querySelectorAll(".page").forEach(page => page.classList.toggle("active", page.id === `page-${pageName}`));
+      document.querySelectorAll(".nav-button").forEach(button => {
+        const active = button.dataset.page === pageName;
+        button.classList.toggle("active", active);
+        if (active) button.setAttribute("aria-current", "page");
+        else button.removeAttribute("aria-current");
+      });
+      document.getElementById("crumb-page").textContent = pageNames[pageName];
+      document.title = pageTitles[pageName];
+      if (push) history.pushState({ page: pageName }, "", `#${pageName}`);
+      window.scrollTo({ top: 0, behavior: "instant" });
+      requestAnimationFrame(onScroll);
+    }
+    function syncFromHash() {
+      const page = location.hash.slice(1);
+      showPage(pageNames[page] ? page : "home", { push: false });
+    }
+    window.addEventListener("popstate", syncFromHash);
+    window.addEventListener("hashchange", syncFromHash);
+    document.querySelectorAll(".nav-button").forEach(button => button.addEventListener("click", () => showPage(button.dataset.page)));
+    document.querySelectorAll("[data-goto]").forEach(button => button.addEventListener("click", event => {
+      event.preventDefault();
+      showPage(button.dataset.goto);
+      const anchor = button.dataset.anchor;
+      if (!anchor) return;
+      requestAnimationFrame(() => {
+        const target = document.getElementById(anchor);
+        if (!target) return;
+        const details = target.closest("details");
+        if (details) details.open = true;
+        target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      });
+    }));
+    document.querySelector('.nav-button[data-page="home"]').setAttribute("aria-current", "page");
+
+    /* ===== Sidebar ===== */
+    const sidebarCollapse = document.getElementById("sidebar-collapse");
+    function setSidebarCollapsed(collapsed, persist = true) {
+      root.classList.toggle("sidebar-collapsed", collapsed);
+      sidebarCollapse.setAttribute("aria-pressed", String(collapsed));
+      sidebarCollapse.setAttribute("aria-label", collapsed ? "Expand sidebar" : "Collapse sidebar");
+      sidebarCollapse.title = collapsed ? "Expand sidebar" : "Collapse sidebar";
+      if (persist) store.set("madoka-sidebar", collapsed ? "collapsed" : "expanded");
+    }
+    setSidebarCollapsed(root.classList.contains("sidebar-collapsed"), false);
+    sidebarCollapse.addEventListener("click", () => setSidebarCollapsed(!root.classList.contains("sidebar-collapsed")));
+
+    /* ===== Docs: side links + scroll spy ===== */
+    const docLinks = [...document.querySelectorAll(".docs-side-link")];
+    const docTargets = docLinks
+      .map(link => ({ link, target: document.querySelector(link.getAttribute("href")) }))
+      .filter(item => item.target)
+      .sort((x, y) => (x.target.compareDocumentPosition(y.target) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
+    docLinks.forEach(link => link.addEventListener("click", event => {
+      event.preventDefault();
+      const target = document.querySelector(link.getAttribute("href"));
+      if (!target) return;
+      const containingGuide = target.closest("details");
+      if (containingGuide) containingGuide.open = true;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+    }));
+    const sideNavList = document.getElementById("docs-side-list");
+    const sideNavCount = document.getElementById("docs-side-count");
+    const compactDocsNav = window.matchMedia("(max-width: 900px)");
+    function updateDocsSpy(force = false) {
+      if (currentPage !== "docs" || !docTargets.length) return;
+      let activeIndex = 0;
+      docTargets.forEach((item, index) => { if (item.target.getBoundingClientRect().top <= 140) activeIndex = index; });
+      if (activeIndex === lastSpyIndex && !force) return;
+      lastSpyIndex = activeIndex;
+      docTargets.forEach((item, index) => {
+        item.link.classList.toggle("is-active", index === activeIndex);
+        item.link.classList.toggle("is-past", index < activeIndex);
+        if (index === activeIndex) item.link.setAttribute("aria-current", "location"); else item.link.removeAttribute("aria-current");
+      });
+      sideNavCount.textContent = `${activeIndex + 1}/${docTargets.length}`;
+      const link = docTargets[activeIndex].link;
+      if (compactDocsNav.matches) {
+        sideNavList.scrollTo({ left: link.offsetLeft - (sideNavList.clientWidth - link.offsetWidth) / 2, behavior: reduceMotion ? "auto" : "smooth" });
+      } else {
+        sideNavList.style.setProperty("--y", `${link.offsetTop}px`);
+        sideNavList.style.setProperty("--h", `${link.offsetHeight}px`);
+        sideNavList.style.setProperty("--fill", `${link.offsetTop + link.offsetHeight / 2}px`);
+      }
+    }
+    window.addEventListener("resize", () => updateDocsSpy(true), { passive: true });
+
+    /* ===== Scroll: progress bar, back-to-top, docs spy ===== */
+    const scrollProgress = document.getElementById("scroll-progress");
+    const toTop = document.getElementById("to-top");
+    let scrollTicking = false;
+    function onScroll() {
+      scrollTicking = false;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      scrollProgress.style.setProperty("--p", (max > 0 ? Math.min(window.scrollY / max, 1) : 0).toFixed(4));
+      toTop.classList.toggle("is-visible", window.scrollY > 600);
+      updateDocsSpy();
+    }
+    window.addEventListener("scroll", () => { if (!scrollTicking) { scrollTicking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+    window.addEventListener("resize", () => requestAnimationFrame(onScroll), { passive: true });
+    toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" }));
+
+    /* ===== Settings: theme + sparkles ===== */
+    const settingsMenu = document.getElementById("settings-menu");
+    const settingsTrigger = document.getElementById("settings-trigger");
+    const cursorMotionToggle = document.getElementById("cursor-motion-toggle");
+    const cursorCanvas = document.getElementById("cursor-trail");
+    const themeOptions = [...document.querySelectorAll("[data-theme-choice]")];
+    const themeMeta = document.querySelector('meta[name="theme-color"]');
+    let fadeTimer;
+    function applyTheme(theme, animate = false) {
+      if (animate) {
+        root.classList.add("theme-fading");
+        clearTimeout(fadeTimer);
+        fadeTimer = setTimeout(() => root.classList.remove("theme-fading"), 450);
+      }
+      root.dataset.theme = theme;
+      themeOptions.forEach(option => option.setAttribute("aria-pressed", String(option.dataset.themeChoice === theme)));
+      themeMeta.content = theme === "dark" ? "#141218" : "#fff4f9";
+    }
+    applyTheme(root.dataset.theme === "dark" ? "dark" : "pink");
+    themeOptions.forEach(option => option.addEventListener("click", () => {
+      const theme = option.dataset.themeChoice;
+      store.set("madoka-theme", theme);
+      applyTheme(theme, !reduceMotion);
+    }));
+
+    let sparklesEnabled = store.get("madoka-cursor-trail") !== "off";
+    function applySparkles(enabled) {
+      sparklesEnabled = enabled;
+      cursorMotionToggle.setAttribute("aria-pressed", String(enabled));
+      cursorMotionToggle.querySelector(".settings-state").textContent = enabled ? "On" : "Off";
+      store.set("madoka-cursor-trail", enabled ? "on" : "off");
+      cursorCanvas.style.display = enabled && !reduceMotion ? "block" : "none";
+    }
+    applySparkles(sparklesEnabled);
+    cursorMotionToggle.addEventListener("click", () => applySparkles(!sparklesEnabled));
+
+    function setSettingsOpen(open) {
+      settingsMenu.classList.toggle("is-open", open);
+      settingsTrigger.setAttribute("aria-expanded", String(open));
+    }
+    settingsTrigger.addEventListener("click", () => setSettingsOpen(!settingsMenu.classList.contains("is-open")));
+    document.addEventListener("pointerdown", event => { if (!settingsMenu.contains(event.target)) setSettingsOpen(false); });
+    settingsMenu.addEventListener("focusout", event => {
+      if (event.relatedTarget && !settingsMenu.contains(event.relatedTarget)) setSettingsOpen(false);
+    });
+    settingsMenu.addEventListener("keydown", event => {
+      if (event.key === "Escape") { setSettingsOpen(false); settingsTrigger.focus(); }
+    });
+
+    /* ===== Hover glow (sinusundan ng mouse) + hero parallax ===== */
+    const GLOW = ".feature-card,.stat-card,.premium-plan,.docs-feature-card,.docs-guide-card,.developer-profile,.doc-command,.premium-command,.side-support,.support-banner,.docs-intro,.premium-banner,.trial-card,.premium-redeem";
+    const hero = document.querySelector(".hero");
+    if (finePointer) {
+      document.addEventListener("pointermove", event => {
+        if (event.pointerType !== "mouse") return;
+        const card = event.target.closest(GLOW);
+        if (!card) return;
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty("--mx", `${event.clientX - rect.left}px`);
+        card.style.setProperty("--my", `${event.clientY - rect.top}px`);
+      }, { passive: true });
+      if (hero && !reduceMotion) {
+        hero.addEventListener("pointermove", event => {
+          const rect = hero.getBoundingClientRect();
+          hero.style.setProperty("--px", (((event.clientX - rect.left) / rect.width) * 2 - 1).toFixed(3));
+          hero.style.setProperty("--py", (((event.clientY - rect.top) / rect.height) * 2 - 1).toFixed(3));
+        }, { passive: true });
+        hero.addEventListener("pointerleave", () => { hero.style.setProperty("--px", 0); hero.style.setProperty("--py", 0); });
+      }
+    }
+    const heroAvatar = document.querySelector(".hero-bot-inner");
+    if (heroAvatar) heroAvatar.parentElement.addEventListener("click", () => {
+      heroAvatar.classList.remove("boing");
+      void heroAvatar.offsetWidth;
+      heroAvatar.classList.add("boing");
+      setTimeout(() => heroAvatar.classList.remove("boing"), 700);
+    });
+
+    /* ===== Reveal on scroll (nagsisimula pagkatapos ng intro) ===== */
+    const revealTargets = [];
+    let revealStarted = false;
+    const revealSelector = ".page-title,.section-head,.stat-card,.feature-card,.support-banner,.docs-intro,.docs-feature-card,.docs-guide-card,.docs-section-heading,.docs-guide-detail,.premium-banner,.trial-card,.premium-plan,.premium-redeem,.premium-command-group,.developer-profile,.command-terminal,.docs-browser,.coming-soon,.hero-copy,.hero-bot";
+    const canReveal = !reduceMotion && "IntersectionObserver" in window;
+    if (canReveal) {
+      document.querySelectorAll(revealSelector).forEach(element => {
+        const index = [...element.parentElement.children].indexOf(element);
+        element.style.setProperty("--d", `${(index % 4) * 70}ms`);
+        element.classList.add("rv");
+        revealTargets.push(element);
+      });
+    }
+    function startReveal() {
+      if (revealStarted) return;
+      revealStarted = true;
+      if (!canReveal) return;
+      const revealer = new IntersectionObserver(entries => entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-in");
+        revealer.unobserve(entry.target);
+      }), { threshold: 0.1, rootMargin: "0px 0px -5% 0px" });
+      revealTargets.forEach(element => revealer.observe(element));
+    }
+
+    /* ===== Intro ===== */
+    const intro = document.getElementById("intro");
+    function finishIntro() { if (intro) intro.remove(); startReveal(); }
+    if (intro && !root.classList.contains("skip-intro")) {
+      const skipIntro = () => {
+        if (intro.classList.contains("is-skipping")) return;
+        intro.classList.add("is-skipping");
+        startReveal();
+      };
+      intro.addEventListener("animationend", event => { if (event.target === intro && event.animationName.startsWith("splash")) finishIntro(); });
+      intro.addEventListener("pointerdown", skipIntro);
+      window.addEventListener("keydown", event => { if (["Escape", "Enter", " "].includes(event.key)) skipIntro(); }, { once: true });
+      setTimeout(startReveal, 2250);
+      setTimeout(finishIntro, 4200);
+    } else {
+      if (intro) intro.remove();
+      startReveal();
+    }
+
+    /* ===== Terminal preview ===== */
+    const terminal = document.getElementById("terminal");
+    if (terminal) {
+      const out = document.getElementById("terminal-out");
+      const tabs = [...terminal.querySelectorAll(".t-tab")];
+      const logo = '<img class="t-avatar" src="madoka-avatar.gif" alt="" width="26" height="26">';
+      const step = (count, text) => ({ cls: "t-step", html: `<span class="t-state" aria-hidden="true"></span><span class="t-count">${count}</span><span>${text}</span>`, step: true, wait: 520 });
+      const scenes = [
+        { cmd: "help", title: "Madoka command guide", rows: [
+          { cls: "t-text", html: 'Pick a category, then run <code>&gt;help &lt;command&gt;</code> to see how a command works.' },
+          { cls: "t-chips", html: ["antinuke", "automod", "moderation", "music", "games", "tickets", "welcomer", "giveaways"].map(name => `<span class="t-chip">${name}</span>`).join("") },
+          { cls: "t-dim", html: "Slash commands also show up in Discord's command menu." }
+        ] },
+        { cmd: "antinuke enable", title: "Initializing Anti-nuke protection preview...", rows: [
+          step("[1/5]", "Checking bot permissions"),
+          step("[2/5]", "Loading trusted-user safeguards"),
+          step("[3/5]", "Preparing audit-log monitoring"),
+          step("[4/5]", "Applying conservative protection rules"),
+          step("[5/5]", "Ready for administrator review"),
+          { cls: "t-bar", html: '<i style="--w:1;--dur:1.4s"></i>', wait: 500 },
+          { cls: "t-result", html: "Preview complete. Check your server's actual command response and configuration before relying on protection." }
+        ] },
+        { cmd: "ping", title: "Pong!", rows: [
+          { cls: "t-stats", html: '<div><b>42 ms</b><span>Latency</span></div><div><b class="t-online">Online</b><span>Status</span></div><div><b>&gt;</b><span>Prefix</span></div>' },
+          { cls: "t-dim", html: "Sample numbers only. Your real latency will differ." }
+        ] },
+        { cmd: "play lofi beats", title: "Now playing", rows: [
+          { cls: "t-track", html: '<div class="t-art" aria-hidden="true"><svg><use href="#i-sparkle"></use></svg></div><div class="t-track-info"><b>lofi beats</b><span>Requested by you</span><div class="t-eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div></div>' },
+          { cls: "t-bar t-bar-music", html: '<i style="--w:.62;--dur:5s"></i>', wait: 400 },
+          { cls: "t-dim", html: "Up next: 2 tracks in the queue." }
+        ] }
+      ];
+
+      let run = 0;
+      let inView = false;
+      let started = false;
+      let userPicked = false;
+
+      function setActiveTab(index) {
+        tabs.forEach((tab, i) => { tab.classList.toggle("is-active", i === index); tab.setAttribute("aria-pressed", String(i === index)); });
+      }
+      function buildEmbed(scene) {
+        const embed = document.createElement("div");
+        embed.className = "t-embed";
+        embed.innerHTML = `<div class="t-embed-head">${logo}<span class="t-botname">Madoka</span><span class="t-bot">BOT</span></div><p class="t-title">${scene.title}</p>`;
+        return embed;
+      }
+      function buildRow(row) {
+        const element = document.createElement("div");
+        element.className = `t-row ${row.cls}`;
+        element.innerHTML = row.html;
+        return element;
+      }
+      function commandLine(text, typing) {
+        const line = document.createElement("div");
+        line.className = "t-line";
+        line.innerHTML = `<span class="t-prompt">&gt;</span><span class="t-cmd${typing ? " is-typing" : ""}">${typing ? "" : text}</span>`;
+        return line;
+      }
+      function renderStatic(index) {
+        run++;
+        setActiveTab(index);
+        out.replaceChildren(commandLine(scenes[index].cmd, false));
+        const embed = buildEmbed(scenes[index]);
+        scenes[index].rows.forEach(row => {
+          const element = buildRow(row);
+          element.classList.add("is-in");
+          if (row.step) element.classList.add("done");
+          embed.append(element);
+        });
+        out.append(embed);
+      }
+      async function play(index) {
+        const id = ++run;
+        const scene = scenes[index];
+        setActiveTab(index);
+        const line = commandLine("", true);
+        out.replaceChildren(line);
+        const cmd = line.querySelector(".t-cmd");
+        await sleep(350);
+        for (const character of scene.cmd) {
+          if (id !== run) return;
+          cmd.textContent += character;
+          await sleep(55 + Math.random() * 40);
+        }
+        cmd.classList.remove("is-typing");
+        await sleep(320);
+        if (id !== run) return;
+        const embed = buildEmbed(scene);
+        out.append(embed);
+        for (const row of scene.rows) {
+          await sleep(260);
+          if (id !== run) return;
+          const element = buildRow(row);
+          embed.append(element);
+          requestAnimationFrame(() => element.classList.add("is-in"));
+          if (row.step) setTimeout(() => element.classList.add("done"), row.wait);
+          if (row.step) await sleep(150); else if (row.wait) await sleep(row.wait);
+        }
+        await sleep(520);
+        if (id !== run) return;
+        await sleep(userPicked ? 7000 : 4600);
+        while (id === run && (!inView || document.hidden)) await sleep(500);
+        if (id !== run) return;
+        play((index + 1) % scenes.length);
+      }
+
+      tabs.forEach((tab, i) => tab.addEventListener("click", () => {
+        userPicked = true;
+        if (reduceMotion) renderStatic(i); else play(i);
+      }));
+
+      if (reduceMotion) renderStatic(0);
+      else {
+        out.replaceChildren(commandLine("", true));
+        if ("IntersectionObserver" in window) {
+          new IntersectionObserver(entries => {
+            inView = entries.some(entry => entry.isIntersecting);
+            if (inView && !started) { started = true; play(0); }
+          }, { threshold: 0.3 }).observe(terminal);
+        } else { inView = true; started = true; play(0); }
+      }
+    }
+
+    /* ===== Cursor: makinis na ribbon trail + soft click ripple ===== */
+    if (!reduceMotion) {
+      const ctx = cursorCanvas.getContext("2d");
+      const LIFE = 460;
+      const trail = [];
+      const ripples = [];
+      const head = { x: 0, y: 0, tx: 0, ty: 0, active: false };
+      let width = 0, height = 0, frame = 0, lastMove = 0;
+
+      function resizeCanvas() {
+        const ratio = Math.min(window.devicePixelRatio || 1, 2);
+        width = window.innerWidth;
+        height = window.innerHeight;
+        cursorCanvas.width = Math.round(width * ratio);
+        cursorCanvas.height = Math.round(height * ratio);
+        ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      }
+      window.addEventListener("resize", resizeCanvas, { passive: true });
+      resizeCanvas();
+      const kick = () => { if (!frame) frame = requestAnimationFrame(tick); };
+      const mix = (from, to, amount) => Math.round(from + (to - from) * amount);
+
+      window.addEventListener("pointermove", event => {
+        if (!sparklesEnabled || event.pointerType !== "mouse") return;
+        head.tx = event.clientX;
+        head.ty = event.clientY;
+        if (!head.active) { head.x = event.clientX; head.y = event.clientY; head.active = true; }
+        lastMove = performance.now();
+        kick();
+      }, { passive: true });
+      document.documentElement.addEventListener("mouseleave", () => { head.active = false; });
+
+      window.addEventListener("pointerdown", event => {
+        if (!sparklesEnabled || document.getElementById("intro")) return;
+        const interactive = event.target.closest("button,a,summary,input,label,[role='button']");
+        if (event.pointerType !== "mouse" && !interactive) return;
+        ripples.push({ x: event.clientX, y: event.clientY, t: performance.now(), strong: Boolean(interactive) });
+        kick();
+      }, { passive: true });
+
+      function drawTrail(now) {
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        for (let i = 1; i < trail.length; i++) {
+          const a = trail[i - 1], b = trail[i];
+          const life = 1 - (now - b.t) / LIFE;
+          if (life <= 0) continue;
+          const lineWidth = 1 + 8 * life;
+          const color = `${mix(183, 255, life)}, ${mix(116, 79, life)}, ${mix(255, 157, life)}`;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.strokeStyle = `rgba(${color}, ${0.14 * life})`;
+          ctx.lineWidth = lineWidth * 2.6;
+          ctx.stroke();
+          ctx.strokeStyle = `rgba(${color}, ${0.85 * life})`;
+          ctx.lineWidth = lineWidth;
+          ctx.stroke();
+        }
+      }
+      function drawHead(now) {
+        const idle = now - lastMove;
+        const alpha = Math.max(0, Math.min(1, 1 - (idle - 120) / 260));
+        if (!head.active || alpha <= 0) return;
+        const glow = ctx.createRadialGradient(head.x, head.y, 0, head.x, head.y, 18);
+        glow.addColorStop(0, `rgba(255, 79, 157, ${0.42 * alpha})`);
+        glow.addColorStop(1, "rgba(255, 79, 157, 0)");
+        ctx.fillStyle = glow;
+        ctx.beginPath(); ctx.arc(head.x, head.y, 18, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = `rgba(255, 79, 157, ${alpha})`;
+        ctx.beginPath(); ctx.arc(head.x, head.y, 3.6, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = `rgba(255, 255, 255, ${0.95 * alpha})`;
+        ctx.beginPath(); ctx.arc(head.x, head.y, 1.5, 0, Math.PI * 2); ctx.fill();
+      }
+      function drawRipples(now) {
+        for (let i = ripples.length - 1; i >= 0; i--) {
+          const ripple = ripples[i];
+          const progress = (now - ripple.t) / 560;
+          if (progress >= 1) { ripples.splice(i, 1); continue; }
+          const ease = 1 - Math.pow(1 - progress, 3);
+          ctx.strokeStyle = `rgba(255, 79, 157, ${0.55 * (1 - progress)})`;
+          ctx.lineWidth = 2.2 * (1 - progress) + 0.4;
+          ctx.beginPath(); ctx.arc(ripple.x, ripple.y, 6 + ease * (ripple.strong ? 40 : 30), 0, Math.PI * 2); ctx.stroke();
+          if (!ripple.strong) continue;
+          ctx.fillStyle = `rgba(183, 116, 255, ${0.8 * (1 - progress)})`;
+          for (let d = 0; d < 6; d++) {
+            const angle = (d / 6) * Math.PI * 2 + 0.4;
+            const distance = 10 + ease * 46;
+            ctx.beginPath();
+            ctx.arc(ripple.x + Math.cos(angle) * distance, ripple.y + Math.sin(angle) * distance, 2.6 * (1 - progress) + 0.3, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+      }
+      function tick(now) {
+        frame = 0;
+        ctx.clearRect(0, 0, width, height);
+        if (head.active) {
+          head.x += (head.tx - head.x) * 0.34;
+          head.y += (head.ty - head.y) * 0.34;
+          const last = trail[trail.length - 1];
+          if (now - lastMove < 700 && (!last || Math.hypot(head.x - last.x, head.y - last.y) > 1.2)) trail.push({ x: head.x, y: head.y, t: now });
+        }
+        while (trail.length && now - trail[0].t > LIFE) trail.shift();
+        drawTrail(now);
+        drawHead(now);
+        drawRipples(now);
+        if (trail.length || ripples.length || (head.active && now - lastMove < 700)) frame = requestAnimationFrame(tick);
+      }
+    }
+
+    /* ===== Simula ===== */
+    const initialPage = location.hash.slice(1);
+    if (pageNames[initialPage]) showPage(initialPage, { push: false });
+    onScroll();
+
+  </script>
+
+</body>
+</html>
