@@ -148,7 +148,7 @@
           <div class="stats-grid">
             <div class="stat-card"><span class="stat-icon"><svg><use href="#i-command-square"></use></svg></span><span><span class="stat-value" id="total-command-count">0</span><span class="stat-label">Total commands</span></span></div>
             <div class="stat-card"><span class="stat-icon"><svg><use href="#i-shield"></use></svg></span><span><span class="stat-value">16</span><span class="stat-label">Main feature areas</span></span></div>
-            <div class="stat-card"><span class="stat-icon"><svg><use href="#i-users"></use></svg></span><span><span class="stat-value">Prefix <span class="prefix-mark">&gt;</span></span><span class="stat-label">Default prefix</span></span></div>
+            <div class="stat-card"><span class="stat-icon"><svg><use href="#i-users"></use></svg></span><span><span class="stat-value">Prefix <span class="prefix-mark">.</span></span><span class="stat-label">Default prefix</span></span></div>
           </div>
           <div class="section-head">
             <div><div class="eyebrow">What Madoka can do</div><h2>Main features</h2></div>
@@ -192,7 +192,7 @@
           <div class="docs-intro">
             <div class="eyebrow">Quick start</div>
             <h2>One prefix. Plenty to explore.</h2>
-            <p>Madoka is a Discord bot that helps with server safety, moderation, music, and community tools. Its default prefix is <code>&gt;</code>. Server administrators can change it with <code>setprefix !</code>; the exclamation mark is only an example. Slash commands can also be available in Discord's command menu.</p>
+            <p>Madoka is a Discord bot that helps with server safety, moderation, music, and community tools. Its default prefix is <code>.</code>. Server administrators can change it with <code>setprefix !</code>; the exclamation mark is only an example. Slash commands can also be available in Discord's command menu.</p>
           </div>
           <section class="docs-section" id="docs-features" aria-labelledby="docs-features-title">
             <div class="docs-section-heading"><div><div class="eyebrow">Meet your toolkit</div><h2 id="docs-features-title">What can Madoka do?</h2><p>A practical overview of the features available across the bot.</p></div></div>
@@ -212,13 +212,13 @@
             <div class="docs-guide-grid">
               <article class="docs-guide-card"><span class="docs-guide-step">01</span><h3>Invite the bot</h3><p>Use <a class="inline-link" href="https://discord.com/oauth2/authorize?client_id=1555693618373853305&amp;permissions=8&amp;integration_type=0&amp;scope=bot" target="_blank" rel="noopener noreferrer">Add Madoka to Discord</a>, choose a server where you can manage integrations, and review the requested permissions before confirming.</p></article>
               <article class="docs-guide-card"><span class="docs-guide-step">02</span><h3>Choose a command channel</h3><p>Make sure Madoka can view the channel and send messages there. For moderation or setup actions, the bot and the person running the command also need the relevant Discord permissions.</p></article>
-              <article class="docs-guide-card"><span class="docs-guide-step">03</span><h3>Try a command</h3><p>Try <code>&gt;ping</code> or browse the categories below. Use the server's active prefix; <code>setprefix !</code> shows how an administrator could switch to <code>!</code>.</p></article>
+              <article class="docs-guide-card"><span class="docs-guide-step">03</span><h3>Try a command</h3><p>Try <code>.ping</code> or browse the categories below. Use the server's active prefix; <code>setprefix !</code> shows how an administrator could switch to <code>!</code>.</p></article>
             </div>
           </section>
           <section class="docs-section docs-guide-details" aria-label="Madoka setup and help">
             <details class="docs-guide-detail">
               <summary id="docs-add-bot">How to add Madoka to your server</summary>
-              <div><p>Open the <a class="inline-link" href="https://discord.com/oauth2/authorize?client_id=1555693618373853305&amp;permissions=8&amp;integration_type=0&amp;scope=bot" target="_blank" rel="noopener noreferrer">Madoka invite page</a>, sign in to Discord if prompted, select the server, review the permissions, and authorize the bot. You need permission to manage that server's integrations. After Discord redirects you back, check the member list to confirm Madoka joined.</p><p>Then allow Madoka to view and send messages in the channel where you will test it. Try <code>&gt;ping</code> or use the command browser below. Ask a server administrator to review the invite permissions and role position before enabling moderation or protection features.</p></div>
+              <div><p>Open the <a class="inline-link" href="https://discord.com/oauth2/authorize?client_id=1555693618373853305&amp;permissions=8&amp;integration_type=0&amp;scope=bot" target="_blank" rel="noopener noreferrer">Madoka invite page</a>, sign in to Discord if prompted, select the server, review the permissions, and authorize the bot. You need permission to manage that server's integrations. After Discord redirects you back, check the member list to confirm Madoka joined.</p><p>Then allow Madoka to view and send messages in the channel where you will test it. Try <code>.ping</code> or use the command browser below. Ask a server administrator to review the invite permissions and role position before enabling moderation or protection features.</p></div>
             </details>
             <details class="docs-guide-detail">
               <summary id="docs-safety">Permissions, roles, and server safety</summary>
@@ -226,23 +226,23 @@
             </details>
             <details class="docs-guide-detail">
               <summary id="docs-antinuke">Anti-nuke: enable protection carefully</summary>
-              <div><p>Start by choosing a private log channel and deciding which owner or staff accounts are trusted. Search the command browser for <code>antinuke</code> to confirm the exact setup commands supported by your server; command names and available thresholds can differ. The example <code>&gt;antinuke enable</code> is only a hint, not a guarantee of the command syntax.</p><p>Review the action limits, alerts, and whitelist before enabling protection. Add only people you already trust, test with a small staff group, and verify that Madoka's role can perform only the recovery actions you intend. Keep the log channel private and have a trusted administrator check the configuration after activation.</p></div>
+              <div><p>Start by choosing a private log channel and deciding which owner or staff accounts are trusted. Search the command browser for <code>antinuke</code> to confirm the exact setup commands supported by your server; command names and available thresholds can differ. The example <code>.antinuke enable</code> is only a hint, not a guarantee of the command syntax.</p><p>Review the action limits, alerts, and whitelist before enabling protection. Add only people you already trust, test with a small staff group, and verify that Madoka's role can perform only the recovery actions you intend. Keep the log channel private and have a trusted administrator check the configuration after activation.</p></div>
             </details>
             <details class="docs-guide-detail">
               <summary id="docs-premium-activation">How to activate Premium</summary>
-              <div><p>Open the <button class="inline-link" type="button" data-goto="premium">Premium page</button> and choose a plan: ₱199 monthly, ₱399 yearly, or ₱999 lifetime. This website does not take payments or activate Premium automatically. To arrange a plan, join the <a class="inline-link" href="https://discord.gg/6e2Ab3DkYY" target="_blank" rel="noopener noreferrer">support server</a> and open a ticket, or contact a Madoka developer.</p><p>Once Premium is enabled, check your server's status with <code>&gt;premstatus</code>. If it is not working or a Premium command returns an error, create a ticket in the support server with your server ID and the error message. Never send a Discord password, account token, or bot token.</p></div>
+              <div><p>Open the <button class="inline-link" type="button" data-goto="premium">Premium page</button> and choose a plan: ₱199 monthly, ₱399 yearly, or ₱999 lifetime. This website does not take payments or activate Premium automatically. To arrange a plan, join the <a class="inline-link" href="https://discord.gg/6e2Ab3DkYY" target="_blank" rel="noopener noreferrer">support server</a> and open a ticket, or contact a Madoka developer.</p><p>Once Premium is enabled, check your server's status with <code>.premstatus</code>. If it is not working or a Premium command returns an error, create a ticket in the support server with your server ID and the error message. Never send a Discord password, account token, or bot token.</p></div>
             </details>
             <details class="docs-guide-detail">
               <summary id="docs-no-prefix">How do I get no-prefix access?</summary>
-              <div><p>No-prefix lets members run supported commands without typing the server prefix. For example, <code>&gt;ping</code> becomes <code>ping</code>. It is included with every Premium plan.</p><p>Want to try it first? Madoka has a <strong>7-day free trial</strong>. Join the <a class="inline-link" href="https://discord.gg/6e2Ab3DkYY" target="_blank" rel="noopener noreferrer">support server</a> and claim your trial there. Once the trial or Premium is active, run <code>&gt;premstatus</code> to confirm it.</p><p>Something not working or showing an error? Create a ticket in the support server and include your server ID and the error message.</p></div>
+              <div><p>No-prefix lets members run supported commands without typing the server prefix. For example, <code>.ping</code> becomes <code>ping</code>. It is included with every Premium plan.</p><p>Want to try it first? Madoka has a <strong>7-day free trial</strong>. Join the <a class="inline-link" href="https://discord.gg/6e2Ab3DkYY" target="_blank" rel="noopener noreferrer">support server</a> and claim your trial there. Once the trial or Premium is active, run <code>.premstatus</code> to confirm it.</p><p>Something not working or showing an error? Create a ticket in the support server and include your server ID and the error message.</p></div>
             </details>
             <details class="docs-guide-detail">
               <summary id="docs-automod">AutoMod: rules, exclusions, and logs</summary>
-              <div><p>AutoMod can help apply consistent rules to common message patterns. Decide what should trigger a rule, what action should happen, and where staff can review the result. The example <code>&gt;automod</code> opens the feature's setup or help path where supported; use the command library below to find the exact command syntax available to your server.</p><p>Add exclusions carefully for trusted channels or roles, then test rules against harmless examples. Monitor false positives, make sure staff can see the configured log channel, and update the rules when your community's needs change.</p></div>
+              <div><p>AutoMod can help apply consistent rules to common message patterns. Decide what should trigger a rule, what action should happen, and where staff can review the result. The example <code>.automod</code> opens the feature's setup or help path where supported; use the command library below to find the exact command syntax available to your server.</p><p>Add exclusions carefully for trusted channels or roles, then test rules against harmless examples. Monitor false positives, make sure staff can see the configured log channel, and update the rules when your community's needs change.</p></div>
             </details>
             <details class="docs-guide-detail">
               <summary id="docs-prefix">Prefix and slash commands</summary>
-              <div><p>The default prefix shown for Madoka is <code>&gt;</code>. A server administrator can change it with <code>setprefix !</code>; <code>!</code> is just an example, and your server may use a different prefix afterward. Put the active prefix directly before a prefix command, such as <code>&gt;help</code> with the default.</p><p>Slash commands are selected from Discord's built-in command menu and do not need a message prefix. Availability can depend on the command and server configuration. If a command appears unavailable, check whether it is prefix-based or slash-based and whether the bot has permission to respond in that channel.</p></div>
+              <div><p>The default prefix shown for Madoka is <code>.</code>. A server administrator can change it with <code>setprefix !</code>; <code>!</code> is just an example, and your server may use a different prefix afterward. Put the active prefix directly before a prefix command, such as <code>.help</code> with the default.</p><p>Slash commands are selected from Discord's built-in command menu and do not need a message prefix. Availability can depend on the command and server configuration. If a command appears unavailable, check whether it is prefix-based or slash-based and whether the bot has permission to respond in that channel.</p></div>
             </details>
             <details class="docs-guide-detail">
               <summary id="docs-music">Music and voice troubleshooting</summary>
@@ -305,7 +305,7 @@
             </div>
             <div class="premium-redeem">
               <span class="stat-icon"><svg><use href="#i-shield"></use></svg></span>
-              <div><h3>No-prefix access is included</h3><p>Once Premium (or the 7-day trial) is active for your server, members can run supported commands without typing the prefix (for example, <code>&gt;ping</code> becomes <code>ping</code>). If no-prefix or another Premium feature gives an error, create a ticket in the support server.</p></div>
+              <div><h3>No-prefix access is included</h3><p>Once Premium (or the 7-day trial) is active for your server, members can run supported commands without typing the prefix (for example, <code>.ping</code> becomes <code>ping</code>). If no-prefix or another Premium feature gives an error, create a ticket in the support server.</p></div>
             </div>
             <section class="docs-section" aria-labelledby="premium-commands-title">
               <h2 id="premium-commands-title">Premium command guide</h2>
@@ -1586,7 +1586,7 @@ const mainFeatures = [
       const step = (count, text) => ({ cls: "t-step", html: `<span class="t-state" aria-hidden="true"></span><span class="t-count">${count}</span><span>${text}</span>`, step: true, wait: 520 });
       const scenes = [
         { cmd: "help", title: "Madoka command guide", rows: [
-          { cls: "t-text", html: 'Pick a category, then run <code>&gt;help &lt;command&gt;</code> to see how a command works.' },
+          { cls: "t-text", html: 'Pick a category, then run <code>.help &lt;command&gt;</code> to see how a command works.' },
           { cls: "t-chips", html: ["antinuke", "automod", "moderation", "music", "utility", "tickets", "welcomer", "giveaways"].map(name => `<span class="t-chip">${name}</span>`).join("") },
           { cls: "t-dim", html: "Slash commands also show up in Discord's command menu." }
         ] },
@@ -1600,7 +1600,7 @@ const mainFeatures = [
           { cls: "t-result", html: "Preview complete. Check your server's actual command response and configuration before relying on protection." }
         ] },
         { cmd: "ping", title: "Pong!", rows: [
-          { cls: "t-stats", html: '<div><b>14 ms</b><span>Latency</span></div><div><b class="t-online">Online</b><span>Status</span></div><div><b>&gt;</b><span>Prefix</span></div>' },
+          { cls: "t-stats", html: '<div><b>14 ms</b><span>Latency</span></div><div><b class="t-online">Online</b><span>Status</span></div><div><b>.</b><span>Prefix</span></div>' },
           { cls: "t-dim", html: "Sample numbers only. Your real latency will differ." }
         ] },
         { cmd: "play Jealous", title: "Now playing", rows: [
@@ -1633,7 +1633,7 @@ const mainFeatures = [
       function commandLine(text, typing) {
         const line = document.createElement("div");
         line.className = "t-line";
-        line.innerHTML = `<span class="t-prompt">&gt;</span><span class="t-cmd${typing ? " is-typing" : ""}">${typing ? "" : text}</span>`;
+        line.innerHTML = `<span class="t-prompt">.</span><span class="t-cmd${typing ? " is-typing" : ""}">${typing ? "" : text}</span>`;
         return line;
       }
       function renderStatic(index) {
